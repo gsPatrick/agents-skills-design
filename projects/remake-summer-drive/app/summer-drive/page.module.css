@@ -1,0 +1,14 @@
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  background-color: #fff8f1;
+  color: #006eff;
+  padding: 2.431vw 2.083vw;
+}
+
+@media (max-width: 800px) {
+  .wrapper {
+    padding: 6.4vw 5.333vw;
+    overflow-x: hidden;
+  }
+}

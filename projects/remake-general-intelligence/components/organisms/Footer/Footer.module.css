@@ -1,0 +1,247 @@
+.footer {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  background-color: #fff;
+  margin-bottom: 400px;
+}
+
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-inline: var(--page-padding);
+  padding-bottom: var(--spacing-32);
+}
+
+.careersBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 600px;
+  margin-inline: auto;
+}
+
+.logo {
+  width: 48px;
+  height: 48px;
+  margin-bottom: var(--spacing-32);
+}
+
+.heading {
+  margin-bottom: var(--spacing-32);
+  font-family: var(--font-ppmondwest);
+  font-size: clamp(32px, 5vw, 48px);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: #171717;
+  max-width: 24ch;
+  margin-inline: auto;
+}
+
+.careersText {
+  font-family: var(--font-af);
+  font-size: var(--text-body-sm);
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: -0.15px;
+  color: #404040;
+}
+
+.careersLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  color: #171717;
+}
+
+.careersLink span:first-child {
+  border-bottom: 1px solid #525252;
+  padding-bottom: 2px;
+  transition: border-color 0.2s ease;
+}
+
+.careersLink:hover span:first-child {
+  border-color: #404040;
+}
+
+.careersArrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 12px;
+  height: 16px;
+  border-radius: 50px;
+  border: 1px solid rgba(0, 0, 0, 0.24);
+  background: linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0.16) 0%,
+    rgba(255, 255, 255, 0.08) 100%
+  );
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.04);
+}
+
+.bottom {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-32);
+  padding-top: 120px;
+}
+
+.navList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--spacing-12);
+  list-style: none;
+}
+
+.navLink {
+  font-family: var(--font-af);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: -0.13px;
+  color: var(--color-charcoal);
+  transition: opacity 0.2s ease;
+}
+
+.navLink:hover {
+  opacity: 0.7;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-8);
+  width: 100%;
+}
+
+.newsletter {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 222px;
+  height: 38px;
+  padding: 0 0 0 var(--spacing-12);
+  border: 1px solid #e5e5e5;
+  border-radius: var(--radius-lg);
+  background-color: #f5f5f5;
+}
+
+.inputWrap {
+  position: relative;
+  flex: 1;
+  height: 24px;
+  display: flex;
+  align-items: center;
+}
+
+.inputLabel {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  font-family: var(--font-af);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-charcoal);
+  background-color: #f5f5f5;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.input {
+  width: 100%;
+  height: 24px;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: var(--font-af);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-charcoal);
+}
+
+.input:focus ~ .inputLabel,
+.input:not(:placeholder-shown) ~ .inputLabel {
+  opacity: 0;
+}
+
+.submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.submitArrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 12px;
+  height: 16px;
+  border-radius: 50px;
+  border: 1px solid rgba(0, 0, 0, 0.24);
+  background: linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0.16) 0%,
+    rgba(255, 255, 255, 0.08) 100%
+  );
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.04);
+  color: var(--color-charcoal);
+}
+
+.social {
+  display: flex;
+  gap: var(--spacing-8);
+}
+
+.socialBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-lg);
+  border: 1px solid #e5e5e5;
+  background-color: var(--color-paper);
+  color: var(--color-charcoal);
+  transition: opacity 0.2s ease;
+}
+
+.socialBtn:hover {
+  opacity: 0.7;
+}
+
+@media (min-width: 768px) {
+  .bottom {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .navList {
+    justify-content: flex-start;
+  }
+
+  .actions {
+    width: auto;
+    justify-content: flex-end;
+    gap: var(--spacing-16);
+  }
+}
+
+@media (min-width: 1280px) {
+  .footer {
+    margin-bottom: 500px;
+  }
+}

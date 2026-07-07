@@ -1,0 +1,70 @@
+.button {
+  display: inline-flex;
+  align-items: stretch;
+  height: 48px;
+  color: var(--color-abyssal-ink);
+  line-height: 1;
+}
+
+/* Dark label pill */
+.label {
+  display: inline-flex;
+  align-items: center;
+  height: 48px;
+  background-color: var(--color-abyssal-ink);
+  color: var(--color-paper);
+  font-family: var(--font-roboto-mono);
+  font-size: 13px;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  padding-left: 22px;
+  border-radius: 12px 0 0 12px;
+}
+
+.labelText {
+  display: inline-flex;
+}
+
+/* Concave connector — extends the dark pill into the notch. */
+.corner {
+  display: inline-flex;
+  height: 48px;
+  color: var(--color-abyssal-ink);
+}
+
+.corner svg {
+  display: block;
+  height: 48px;
+  width: 18px;
+}
+
+/* Lime arrow blob */
+.icon {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  width: 51px;
+  margin-left: -1px;
+  color: var(--color-bioluminescent-lime);
+}
+
+.blob {
+  display: block;
+  height: 48px;
+  width: 51px;
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  left: 56%;
+  transform: translate(-50%, -50%);
+  color: var(--color-abyssal-ink);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.button:hover .arrow {
+  transform: translate(-30%, -50%);
+}

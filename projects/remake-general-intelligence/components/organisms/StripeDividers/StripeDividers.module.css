@@ -1,0 +1,18 @@
+.wrap {
+  width: 100%;
+}
+
+.band {
+  width: 100%;
+}
+
+.color {
+  height: 6px;
+  width: 100%;
+}
+
+.line {
+  height: 2px;
+  width: 100%;
+  background-color: var(--color-paper);
+}

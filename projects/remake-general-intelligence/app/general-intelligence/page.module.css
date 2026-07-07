@@ -1,0 +1,6 @@
+.page {
+  position: relative;
+  background-color: var(--color-parchment);
+  overflow-x: clip;
+  max-width: 100%;
+}

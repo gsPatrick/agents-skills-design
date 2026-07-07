@@ -1,0 +1,13 @@
+/* Bone-white content shell with rounded bottom that reveals the black
+   footer beneath it (footer sits at a lower stacking level).
+   NOTE: no `overflow: hidden` here — it would break the hero's sticky
+   video (a scroll-clipping ancestor re-parents position: sticky). The
+   last section rounds its own bottom corners instead. */
+.pageContent {
+  position: relative;
+  z-index: 2;
+  background-color: var(--color-bone-white);
+  border-bottom-left-radius: var(--radius-2xl-2);
+  border-bottom-right-radius: var(--radius-2xl-2);
+  margin-bottom: calc(-1 * var(--radius-2xl-2));
+}

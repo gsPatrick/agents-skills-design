@@ -1,0 +1,54 @@
+.main {
+  grid-column: span 12;
+  padding: 10.417vw 0;
+}
+
+.main h3 {
+  font-family: var(--font-editorial-new);
+  font-weight: 100;
+  font-size: 8.333vw;
+  line-height: 100%;
+  text-align: center;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+.main p {
+  font-size: 1.458vw;
+  line-height: 125%;
+  text-align: justify;
+  width: 39.856vw;
+  margin: 0 auto;
+}
+
+.main p + p {
+  margin-top: 2vw;
+}
+
+.main p:first-of-type {
+  margin-top: 4.028vw;
+}
+
+@media (max-width: 800px) {
+  .main {
+    padding: 25vw 0 15vw;
+  }
+
+  .main h3 {
+    font-size: 11.413vw;
+  }
+
+  .main p {
+    font-size: 5.067vw;
+    line-height: 125%;
+    width: 100%;
+  }
+
+  .main p + p {
+    margin-top: 8vw;
+  }
+
+  .main p:first-of-type {
+    margin-top: 10vw;
+  }
+}

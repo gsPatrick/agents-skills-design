@@ -1,0 +1,40 @@
+.wrap {
+  width: min(700px, 100%);
+  margin-left: auto;
+}
+
+.frame {
+  padding: var(--spacing-16);
+  border: 1px solid #a3a3a3;
+  border-radius: var(--radius-2xl);
+  background: rgba(222, 226, 222, 0.16);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.canvas {
+  width: 100%;
+  overflow: hidden;
+  border-radius: var(--radius-xl);
+  background: #fafafa;
+  box-shadow: var(--shadow-subtle);
+  min-height: 220px;
+}
+
+.lottie {
+  width: 100%;
+  height: 100%;
+  transform: scale(1.15);
+  transform-origin: center center;
+}
+
+@media (min-width: 768px) {
+  .canvas {
+    min-height: 325px;
+  }
+
+  .lottie {
+    transform: scale(1.3);
+  }
+}

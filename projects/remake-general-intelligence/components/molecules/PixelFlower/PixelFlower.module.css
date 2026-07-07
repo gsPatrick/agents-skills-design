@@ -1,0 +1,5 @@
+.flower {
+  width: clamp(180px, 28vw, 300px);
+  height: auto;
+  image-rendering: pixelated;
+}

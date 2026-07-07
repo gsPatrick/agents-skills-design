@@ -1,0 +1,50 @@
+.banner {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-12);
+  max-width: min(420px, calc(100vw - 40px));
+  padding: 14px 16px;
+  border-radius: var(--radius-lg);
+  background: var(--color-paper);
+  border: 1px solid var(--color-mist);
+  box-shadow: var(--shadow-subtle);
+}
+
+.text {
+  flex: 1;
+  font-family: var(--font-af);
+  font-size: var(--text-caption);
+  line-height: 1.4;
+  color: var(--color-charcoal);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  font-family: var(--font-af);
+  font-size: var(--text-caption);
+  font-weight: 500;
+  color: var(--color-graphite);
+}
+
+.divider {
+  width: 1px;
+  height: 14px;
+  background: var(--color-mist);
+}
+
+.actions button:hover {
+  color: var(--color-twilight);
+}
+
+@media (max-width: 600px) {
+  .banner {
+    left: 20px;
+    flex-wrap: wrap;
+  }
+}
