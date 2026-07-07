@@ -1,13 +1,15 @@
 ---
 name: remake-landing-page
 description: >-
-  Rebuilds marketing landing pages from saved reference HTML/MHTML into Next.js
-  with Atomic Design. Use when remaking a website, cloning a landing page,
-  reverse-engineering a site, or building portfolio reinterpretations from
-  reference files.
+  Technical workflow for rebuilding an existing site from MHTML/HTM reference
+  files. Use ONLY when the user provides a saved reference file to clone.
+  For original landing pages with design taste, use senior-landing-design instead.
 ---
 
-# Remake Landing Page
+# Remake Landing Page (technical)
+
+> **For design taste and original pages, use [`senior-landing-design`](../senior-landing-design/SKILL.md) first.**
+> This skill is for when you have a saved `.mhtml` / `.htm` reference to clone.
 
 ## Workflow
 

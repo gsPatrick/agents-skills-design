@@ -25,14 +25,24 @@ npm run dev
 
 ## Skills
 
-Agent Skills live in [`skills/`](skills/). They teach Cursor how to remake landing pages using the patterns from these projects.
+Agent Skills teach Cursor **design taste** and **technical patterns** from these projects.
+
+### Primary — use this for any new landing page
 
 | Skill | Purpose |
 |-------|---------|
-| [`remake-landing-page`](skills/remake-landing-page) | End-to-end workflow: reference → Next.js remake |
-| [`mhtml-reference-extraction`](skills/mhtml-reference-extraction) | Read `.mhtml` for layout, spacing, breakpoints |
-| [`scroll-driven-handoff`](skills/scroll-driven-handoff) | Sticky scrollytelling + fade/rise handoff pattern |
-| [`nextjs-atomic-design`](skills/nextjs-atomic-design) | Project structure, CSS Modules, component conventions |
+| **[`senior-landing-design`](skills/senior-landing-design)** | **Design taste, archetypes, layouts, typography** — makes the agent think like a senior designer. Use for nutritionist, clinic, SaaS, any client page. |
+
+Includes: Editorial (GIC), Cinematic (Summer Drive), Darkroom (Integrated Bio) archetypes + section recipes.
+
+### Supporting — technical implementation
+
+| Skill | Purpose |
+|-------|---------|
+| [`nextjs-atomic-design`](skills/nextjs-atomic-design) | File structure, CSS Modules, component conventions |
+| [`scroll-driven-handoff`](skills/scroll-driven-handoff) | Sticky scrollytelling + fade/rise handoff |
+| [`mhtml-reference-extraction`](skills/mhtml-reference-extraction) | Read `.mhtml` when cloning an existing site |
+| [`remake-landing-page`](skills/remake-landing-page) | Clone workflow — only when user provides reference files |
 
 ### Install skills locally
 
@@ -56,14 +66,15 @@ agents-skills-design/
 ├── README.md
 ├── install.sh
 ├── skills/
-│   ├── remake-landing-page/
-│   ├── mhtml-reference-extraction/
+│   ├── senior-landing-design/    ← START HERE (design taste)
+│   │   ├── SKILL.md
+│   │   ├── archetypes.md
+│   │   └── layout-patterns.md
+│   ├── nextjs-atomic-design/
 │   ├── scroll-driven-handoff/
-│   └── nextjs-atomic-design/
+│   ├── mhtml-reference-extraction/
+│   └── remake-landing-page/
 └── projects/
-    ├── remake-summer-drive/
-    ├── remake-integrated-biosciences/
-    └── remake-general-intelligence/
 ```
 
 ---
