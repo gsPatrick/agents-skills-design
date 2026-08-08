@@ -1,0 +1,135 @@
+/* Duas seções irmãs no original: o título vive numa HeadlineWrapper separada
+   do scroller. Por isso o padding se repete. */
+.headline {
+  padding: 32px;
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+}
+
+/* 500px de caixa, 158 de altura: quebra em 3 linhas. */
+.title {
+  width: 500px;
+  max-width: 100%;
+  font-size: 48px;
+  font-weight: var(--weight-350);
+  line-height: 1.1;
+  letter-spacing: -0.72px;
+}
+
+/* padding-left 26, não 32: o círculo sangra 6px para dentro do padding no
+   original. Os outros lados ficam em 32. */
+.section {
+  padding: 32px 32px 32px 26px;
+  background-color: var(--color-paper);
+}
+
+/* inline-grid com 2 linhas de 207px. 207+16+207 = 430, que é exatamente a
+   altura dos frames que ocupam as duas linhas. */
+/* DUAS camadas de animação, e a ordem importa:
+
+   1. o trilho inteiro desliza em `transform` — SEM atraso
+   2. cada frame abre em `width` — com 0.4s de atraso
+
+   O transform corre primeiro e a largura entra depois. É isso que dá a
+   sensação do conjunto entrar em cena e só então se desdobrar. Animar só a
+   largura perde a entrada; animar só o transform perde o desdobrar. */
+.scroller {
+  display: inline-grid;
+  grid-auto-flow: column;
+  grid-template-rows: 207px 207px;
+  gap: 16px;
+  transform: translateX(48px);
+  transition: transform 0.6s cubic-bezier(0.75, 0, 0.25, 1);
+  user-select: none;
+}
+
+/* Quem rola é o viewport, não o grid. Dirigido pelo scroll da página — barra
+   escondida, sem arrasto do usuário. */
+/* Sangra o padding lateral: o viewport mede a largura da tela (1440), não
+   os 1382 que sobrariam dentro do padding. É o que alinha a faixa de scroll
+   com a do original. */
+.viewport {
+  margin-inline: -32px -32px;
+  padding-inline: 26px 32px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.viewport::-webkit-scrollbar {
+  display: none;
+}
+
+.visivel.scroller {
+  transform: translateX(0);
+}
+
+/* A animação é na LARGURA, ancorada à esquerda — não em opacity nem
+   transform. Cada frame cresce de 0 até --w.
+
+   O atraso de 0.4s é FIXO para todos, não escalonado por índice: os nove
+   frames abrem juntos, como um leque. Escalonar viraria cascata, que é
+   outro efeito. */
+.frame {
+  position: relative;
+  width: 0;
+  height: 100%;
+  overflow: hidden;
+  transition: width 0.6s cubic-bezier(0.75, 0, 0.25, 1) 0.4s;
+}
+
+.visivel .frame {
+  width: var(--w);
+}
+
+/* Ocupa as duas linhas: 430px de altura. */
+.alto {
+  grid-row: span 2;
+}
+
+/* Três formas alternadas — nunca a mesma duas vezes seguidas na horizontal.
+   É o que impede a grade de virar mosaico de fotos. */
+.circulo {
+  border-radius: 100%;
+}
+
+.pilula {
+  border-radius: var(--radius-pill);
+}
+
+.arred {
+  border-radius: 16px;
+}
+
+.media {
+  width: var(--w);
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+}
+
+@media (max-width: 1023px) {
+  .headline,
+  .section {
+    padding: 24px;
+  }
+
+  .title {
+    width: auto;
+    font-size: clamp(2rem, 1.5rem + 2.4vw, 3rem);
+  }
+
+  .scroller {
+    grid-template-rows: 150px 150px;
+    gap: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .frame,
+  .scroller {
+    width: var(--w);
+    transform: none;
+    transition: none;
+  }
+}

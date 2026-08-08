@@ -1,0 +1,35 @@
+.section {
+  background-color: var(--color-bone-white);
+  color: var(--color-abyssal-ink);
+  overflow: hidden;
+  padding-block: clamp(40px, 6vw, 96px);
+  white-space: nowrap;
+}
+
+.track {
+  display: inline-flex;
+  width: max-content;
+  animation: marquee 90s linear infinite;
+}
+
+.item {
+  font-size: clamp(48px, 8vw, 111px);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  padding-right: 0;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    animation: none;
+  }
+}

@@ -1,0 +1,130 @@
+/* padding 56px 0, fundo ink. A altura vem do conteúdo (796px no original). */
+.section {
+  padding-block: 56px;
+  background-color: var(--color-ink);
+  color: var(--color-paper);
+}
+
+/* Cabeçalho em DUAS colunas com posições MEDIDAS, não distribuídas:
+     declaração  x=32
+     subhead     x=745   ← não é "encostado à direita"
+     Shop all    x=1339, y 25px abaixo do subhead
+   Com justify-content: space-between o subhead ia para x=858 (+113px). */
+.head {
+  position: relative;
+  /* 106 + 80 de margin = 186px entre a declaração (932) e o card (1118). */
+  min-height: 106px;
+  padding-inline: 32px;
+  margin-bottom: 80px;
+}
+
+/* 48px/350, lh 1.1, ls −0.72px. Metade do tracking do hero: texto claro
+   sobre escuro pede menos aperto, senão as contraformas fecham. */
+.statement {
+  position: absolute;
+  top: 0;
+  left: 32px;
+  max-width: 570px;
+  font-size: 48px;
+  font-weight: var(--weight-350);
+  line-height: 1.1;
+  letter-spacing: -0.72px;
+  color: var(--color-paper);
+}
+
+/* x=745 absoluto: é a coluna da direita, ancorada por medida. */
+.aside {
+  position: absolute;
+  top: 64px;
+  left: 745px;
+  right: 32px;
+}
+
+/* 450px de largura, 16px/350, lh 1.3, ls −0.16px */
+.subhead {
+  max-width: 450px;
+  font-size: 16px;
+  font-weight: var(--weight-350);
+  line-height: 1.3;
+  letter-spacing: -0.16px;
+  color: var(--color-paper);
+}
+
+/* 14px/500, sublinhado */
+/* O offset é relativo ao .aside, que já está em top:64. Para cair em y=1021
+   (= 932 + 64 + 25) o valor é 25, não 89 — eu havia somado os dois. */
+.shopAll {
+  position: absolute;
+  top: 25px;
+  right: 0;
+  /* 69px medidos; o texto renderiza 52 aqui (métrica do subset). */
+  min-width: 69px;
+  text-align: right;
+  font-size: 14px;
+  font-weight: var(--weight-medium);
+  letter-spacing: -0.04px;
+  color: var(--color-paper);
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 1px;
+  white-space: nowrap;
+}
+
+/* Cards em x = 0 · 364 · 728 · 1092 → 348 de largura, 16 de gap. */
+/* overflow visible: o card em foco cresce para FORA da fileira, e com
+   overflow auto ele era cortado. */
+.grid {
+  display: flex;
+  align-items: center;
+  /* gap e padding-inline de 16px, margin-block-end 16px — do CSS real
+     (ProductGridContainer). */
+  gap: 16px;
+  padding-inline: 16px;
+  margin-block-end: 16px;
+  overflow: visible;
+  scrollbar-width: none;
+  padding-inline: 0;
+}
+
+.grid::-webkit-scrollbar {
+  display: none;
+}
+
+@media (max-width: 1023px) {
+  .head {
+    flex-direction: column;
+    gap: 24px;
+    padding-inline: 24px;
+    margin-bottom: 48px;
+  }
+
+  .head {
+    position: static;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .statement,
+  .aside,
+  .shopAll {
+    position: static;
+    top: auto;
+    left: auto;
+    right: auto;
+  }
+
+  .aside {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .statement {
+    font-size: clamp(2rem, 1.4rem + 3vw, 3rem);
+  }
+
+  .grid {
+    padding-inline: 24px;
+  }
+}

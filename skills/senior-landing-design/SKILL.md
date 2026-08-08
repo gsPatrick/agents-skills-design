@@ -37,6 +37,26 @@ Layout recipes: [layout-patterns.md](layout-patterns.md)
 
 ---
 
+## Onde está o código (leia antes de implementar)
+
+Esta skill dá o **juízo de design**. Ela não é a fonte dos números.
+
+| Preciso de… | Vá para |
+|---|---|
+| O código real de uma animação/seção | [`recipes/INDEX.md`](../../recipes/INDEX.md) |
+| Decompor uma seção antes de codar | [`section-anatomy`](../section-anatomy/SKILL.md) |
+| Medir um original com confiança | [`measurement-protocol`](../measurement-protocol/SKILL.md) |
+| A marca do produto (o produto não tem logo) | [`brand-mark-design`](../brand-mark-design/SKILL.md) |
+| Entender como um projeto foi montado | `projects/*/ANATOMY.md` |
+| Estrutura de arquivos e convenções | [`nextjs-atomic-design`](../nextjs-atomic-design/SKILL.md) |
+
+**Regra:** nunca reconstrua um padrão a partir da descrição em prosa quando o
+código real existe em `recipes/`. Copie o arquivo e ajuste os parâmetros
+listados no `RECIPE.md`. Reconstruir de memória é de onde vêm os números
+errados e as animações que disparam na hora errada.
+
+---
+
 ## Universal senior rules (never break)
 
 ### Typography
@@ -110,13 +130,22 @@ Nav: logo morphs to frosted pill, white on dark
 
 ## Build order (senior workflow)
 
-1. `globals.css` — full token system first (colors, fonts, spacing, type scale, easings)
-2. `NavBar` — sets the tone immediately
-3. `Hero` — the hero moment; spend 40% of effort here
-4. Remaining sections in emotional arc order
-5. `Footer` — land the page with weight
-6. Scroll animations — only after layout is pixel-correct
-7. `npm run build` + check 375px, 1024px, 1440px
+1. **Design brief** — o bloco acima, por escrito
+2. **Varra [`recipes/INDEX.md`](../../recipes/INDEX.md)** e escolha os padrões
+   antes de escrever qualquer CSS. Você está montando com peças existentes, não
+   inventando do zero.
+3. `globals.css` — sistema de tokens completo (cores, fontes, espaçamento,
+   escala tipográfica, easings)
+4. **Marca** — se o produto não tem logo, desenhe agora, não depois. Ver
+   [`brand-mark-design`](../brand-mark-design/SKILL.md). O nav depende dela.
+5. `NavBar` — define o tom imediatamente
+6. `Hero` — o momento; gaste 40% do esforço aqui
+7. Seções restantes na ordem do arco emocional
+8. `Footer` — feche a página com peso
+9. **Animações por último** — só depois do layout estar correto. Para cada uma,
+   siga [`section-anatomy`](../section-anatomy/SKILL.md) antes de codar.
+10. `npm run build` + testar em 375px, 1024px, 1440px
+11. Registrar padrões novos em `recipes/` e escrever o `ANATOMY.md` do projeto
 
 ## Stack
 

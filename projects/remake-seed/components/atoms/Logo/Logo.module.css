@@ -1,0 +1,24 @@
+/* 20px / weight 300 — medido no original. O wordmark é um glyph da Seed
+   Sans, então basta o tamanho e o peso; não há SVG nem imagem. */
+.mark {
+  display: inline-flex;
+  align-items: center;
+  /* 9px fecha os 64px medidos: "Seed" + gap + ponto de 7px */
+  gap: 9px;
+  font-family: var(--font-sans);
+  font-size: var(--text-logo);
+  font-weight: var(--weight-light);
+  line-height: 1;
+  color: var(--color-ink);
+  letter-spacing: normal;
+}
+
+/* O ponto sólido depois do wordmark. 7px de diâmetro, mesma tinta. */
+.dot {
+  display: block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: currentColor;
+  flex-shrink: 0;
+}

@@ -1,0 +1,73 @@
+/* Fundo branco — não fog. É a última faixa clara antes do rodapé. */
+.section {
+  padding-block: clamp(80px, 10vw, 160px);
+  background-color: var(--color-paper-white);
+}
+
+/* Duas colunas: texto à esquerda, ilustração à direita. Não é centralizado. */
+/* 16px de padding, não os 48px do container padrão: no original o texto
+   começa em x=136 (= 120 de centragem + 16), não em 168. */
+.inner {
+  padding-inline: var(--spacing-16);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(40px, 5vw, 64px);
+  text-align: left;
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  /* 20px medidos entre a base do título e o subtítulo. */
+  gap: var(--spacing-20);
+  max-width: 560px;
+}
+
+.title {
+  /* 64px — o mesmo de todos os títulos de seção do original. */
+  font-size: clamp(2.5rem, 1.6rem + 3vw, 4rem);
+  max-width: 12ch;
+}
+
+.subhead {
+  font-size: var(--text-body-lg);
+  line-height: 1.35;
+  color: var(--color-slate-gray);
+  max-width: 480px;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-16);
+  margin-top: var(--spacing-16);
+}
+
+/* A porta é uma ilustração solta: 360×360, sem raio, sem sombra, sem
+   superfície. Envolvê-la num card a transformaria em "screenshot de
+   produto", que é o oposto do que ela comunica. */
+.preview {
+  width: 100%;
+  max-width: 360px;
+  aspect-ratio: 1 / 1;
+  margin-inline: auto;
+}
+
+.previewImage {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+@media (min-width: 900px) {
+  .inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: center;
+    gap: var(--spacing-40);
+  }
+}

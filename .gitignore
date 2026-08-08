@@ -13,3 +13,24 @@ npm-debug.log*
 **/reference/
 **/*.mhtml
 **/*.htm
+
+# --- Mídia pesada -----------------------------------------------------------
+# Os vídeos dos clones somam ~1 GB (Seed 343M, Superpower 342M, Steep 264M) e
+# não cabem num repositório público. Os comandos para baixá-los estão em
+# skills/mhtml-reference-extraction (HLS do Mux, CDN com Referer) e no
+# ANATOMY.md de cada projeto.
+projects/*/public/media/*.mp4
+projects/*/public/media/*.mov
+projects/*/public/media/*.gif
+recipes/**/*.mp4
+recipes/**/*.mov
+
+node_modules/
+.next/
+.DS_Store
+
+# --- Material de referência --------------------------------------------------
+# Os HTML/MHTML salvos dos sites originais (86 MB) e os clones de projetos
+# pessoais. São insumo de trabalho, não conteúdo do repositório — e dois deles
+# são repositórios git aninhados.
+HTML CLONE PROJETOS/

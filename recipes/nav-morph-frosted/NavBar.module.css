@@ -1,0 +1,237 @@
+.header {
+  position: fixed;
+  top: clamp(16px, 2vw, 30px);
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 100;
+  pointer-events: none;
+}
+
+@keyframes headerIntro {
+  from {
+    opacity: 0;
+    transform: translateY(-24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .inner {
+    animation: none;
+  }
+}
+
+.inner {
+  position: relative;
+  z-index: 101;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-24);
+  animation: headerIntro 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both;
+}
+
+/* --- Logo: white over the dark hero, ink inside a frosted pill on scroll --- */
+.logo {
+  display: inline-flex;
+  align-items: center;
+  padding: 9px 14px;
+  border-radius: 12px;
+  color: var(--color-paper);
+  background-color: transparent;
+  border: 1px solid transparent;
+  pointer-events: auto;
+  transition: background-color 0.6s var(--ease, cubic-bezier(0.16, 1, 0.3, 1)),
+    color 0.3s ease, border-color 0.6s ease;
+}
+
+.scrolled .logo,
+.menuOpen .logo {
+  color: var(--color-abyssal-ink);
+  background-color: rgba(255, 255, 255, 0.85);
+  border-color: rgba(34, 47, 48, 0.05);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  pointer-events: auto;
+}
+
+/* Frosted white menu pill (always visible on desktop). */
+.menu {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+  padding: 4px 4px 4px 8px;
+  border-radius: 12px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(34, 47, 48, 0.05);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+}
+
+.menuItem {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-roboto-mono);
+  font-size: 13px;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  color: var(--color-abyssal-ink);
+  padding: 9px 16px;
+  border-radius: 8px;
+  transition: background-color 0.4s ease;
+}
+
+.menuItem:hover {
+  background-color: var(--color-bone-white);
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-roboto-mono);
+  font-size: 13px;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  color: var(--color-paper);
+  background-color: var(--color-abyssal-ink);
+  border: 1px solid var(--color-abyssal-ink);
+  padding: 9px 16px;
+  border-radius: 8px;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+.cta:hover {
+  background-color: var(--color-paper);
+  color: var(--color-abyssal-ink);
+}
+
+.burger {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  width: 28px;
+  padding: 6px 0;
+  color: var(--color-abyssal-ink);
+}
+
+.burger span {
+  display: block;
+  height: 1.5px;
+  width: 100%;
+  background-color: currentColor;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Scrolled: dark chip with lime bars. */
+.scrolled .burger {
+  background-color: var(--color-abyssal-ink) !important;
+  color: var(--color-bioluminescent-lime);
+}
+
+/* Open: frosted white chip whose bars cross into an X. */
+.menuOpen .burger {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  color: var(--color-abyssal-ink);
+}
+
+.burgerOpen span:first-child {
+  transform: translateY(3.25px) rotate(45deg);
+}
+
+.burgerOpen span:last-child {
+  transform: translateY(-3.25px) rotate(-45deg);
+}
+
+/* --- Full-screen mobile menu overlay --- */
+.popup {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background-color: var(--color-abyssal-ink);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.popupOpen {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.popupInner {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 120px var(--page-padding) clamp(48px, 10vh, 96px);
+}
+
+.popupMenu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  text-align: center;
+}
+
+.popupItem {
+  font-family: var(--font-aspekta);
+  font-size: clamp(38px, 12vw, 56px);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--color-paper);
+  transition: opacity 0.25s ease;
+}
+
+.popupItem:hover {
+  opacity: 0.7;
+}
+
+.popupMail {
+  position: absolute;
+  bottom: clamp(48px, 10vh, 96px);
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-aspekta);
+  font-size: clamp(16px, 4.6vw, 20px);
+  letter-spacing: -0.01em;
+  color: var(--color-bioluminescent-lime);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  white-space: nowrap;
+}
+
+@media (max-width: 1024px) {
+  .menu {
+    display: none;
+  }
+
+  .burger {
+    display: flex;
+    background-color: rgba(255, 255, 255, 0.85);
+    border-radius: 12px;
+    width: 48px;
+    height: 48px;
+    align-items: center;
+    padding: 0 12px;
+    pointer-events: auto;
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    transition: background-color 0.4s ease, color 0.4s ease;
+  }
+}

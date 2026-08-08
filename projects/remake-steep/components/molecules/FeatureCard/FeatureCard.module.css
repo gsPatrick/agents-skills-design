@@ -1,0 +1,72 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-12);
+  padding: var(--spacing-32) var(--spacing-24) var(--spacing-28);
+  background-color: var(--color-mist-gray);
+  border-radius: var(--radius-card);
+  /* sem sombra, sem borda — deliberado */
+}
+
+.icon {
+  width: 56px;
+  height: 56px;
+  margin-bottom: var(--spacing-8);
+}
+
+.icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Tag tipográfica: sem fundo, sem badge. Agrupa sem peso visual. */
+.category {
+  font-size: var(--text-meta);
+  font-weight: var(--weight-regular);
+  color: var(--color-ash-gray);
+}
+
+.title {
+  font-size: var(--text-body-lg);
+  font-weight: var(--weight-medium);
+  line-height: 1.25;
+  letter-spacing: var(--tracking-sm);
+  color: var(--color-ink-black);
+  max-width: 22ch;
+}
+
+.text {
+  font-size: var(--text-ui);
+  font-weight: var(--weight-regular);
+  line-height: 1.5;
+  color: var(--color-ink-black);
+  max-width: 42ch;
+}
+
+.link {
+  margin-top: var(--spacing-8);
+}
+
+/* Variante compacta — usada na grade de 4 do Semantic platform. */
+.compact {
+  gap: var(--spacing-8);
+  padding: var(--spacing-24) var(--spacing-20);
+}
+
+.compact .title {
+  font-size: var(--text-ui);
+  font-weight: var(--weight-480);
+}
+
+.compact .text {
+  font-size: var(--text-caption);
+  color: var(--color-slate-gray);
+}
+
+/* Não existe variante peach aqui de propósito.
+   O sistema permite UMA superfície peach por página, e ela já é o card de
+   história do cliente (organisms/CustomerStory). Expor um `.accent` genérico
+   aqui tornaria trivial colocar uma segunda — e duas superfícies de destaque
+   significam que nenhuma é destaque. */

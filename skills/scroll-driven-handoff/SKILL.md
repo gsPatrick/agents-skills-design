@@ -9,6 +9,17 @@ description: >-
 
 # Scroll-Driven Handoff
 
+> ⚠️ **Esta skill foi substituída por
+> [`recipes/scroll-step-handoff`](../../recipes/scroll-step-handoff/)**, que traz
+> o código completo do Coordinator (192 linhas JS + 311 CSS), a calibragem de
+> cada constante e as armadilhas em detalhe.
+>
+> O resumo abaixo continua correto. Use-o para reconhecer o padrão; use a recipe
+> para implementá-lo.
+>
+> Para decompor uma seção antes de codar, veja
+> [`section-anatomy`](../section-anatomy/SKILL.md).
+
 ## Pattern (Coordinator-style)
 
 ```

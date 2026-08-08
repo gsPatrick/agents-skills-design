@@ -1,0 +1,211 @@
+/* fixed top-0 left-0 right-0 z-50 px-5 bg-transparent h-16 overflow-hidden
+   sm:h-auto — transparente sempre, sem sombra, sem borda. */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-inline: var(--spacing-20);
+  height: var(--nav-height);
+  overflow: hidden;
+  background-color: transparent;
+  transition: background-color 0.5s ease;
+}
+
+.inner {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: var(--nav-max-width);
+  height: var(--nav-height);
+  flex-shrink: 0;
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  flex: 1;
+  padding-bottom: 4px;
+  padding-left: 4px;
+  color: var(--color-ink-black);
+}
+
+.nav {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+}
+
+/* 16px / lh 21px, peso 430 — valores do computed style do original.
+   O `text-xs` do markup salvo é sobrescrito em runtime; não confie nele. */
+.menuItem {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-4);
+  padding: 4px 14px 6px;
+  margin-inline: 4px;
+  font-size: var(--text-ui);
+  line-height: 21px;
+  font-weight: var(--weight-book);
+  color: var(--color-ink-black);
+  border-radius: var(--radius-pill);
+  transition: color 0.15s ease;
+}
+
+.menuItem:hover {
+  color: #888;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--spacing-4);
+}
+
+.demoCta {
+  display: none;
+}
+
+/* --- Burger (só < 640px) ------------------------------------------------- */
+.burger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding-left: 6px;
+  margin-left: auto;
+  color: var(--color-ink-black);
+}
+
+.burger span {
+  position: absolute;
+  display: block;
+  width: 18px;
+  height: 1.5px;
+  border-radius: 1px;
+  background-color: currentColor;
+  transition: transform 0.3s var(--ease-out), opacity 0.2s ease;
+}
+
+.burger span:first-child {
+  transform: translateY(-3.5px);
+}
+
+.burger span:last-child {
+  transform: translateY(3.5px);
+}
+
+.burgerOpen span:first-child {
+  transform: rotate(45deg);
+}
+
+.burgerOpen span:last-child {
+  transform: rotate(-45deg);
+}
+
+/* --- Menu mobile --------------------------------------------------------- */
+.popup {
+  z-index: 40;
+  width: 100%;
+  color: var(--color-ink-black);
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(-66%);
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.popupOpen {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.popupInner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-40);
+  height: 100dvh;
+  padding-top: var(--spacing-16);
+  padding-bottom: 112px;
+}
+
+.popupMenu {
+  display: flex;
+  flex-direction: column;
+}
+
+.popupItem {
+  display: block;
+  padding: var(--spacing-8) 36px;
+  font-size: var(--text-body-lg);
+  transition: opacity 0.2s ease;
+}
+
+.popupItem:hover {
+  opacity: 0.6;
+}
+
+.popupActions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-12);
+  padding-inline: 36px;
+}
+
+.popupActions > * {
+  width: 100%;
+}
+
+/* Aberto: o header cresce para caber o overlay. */
+.menuOpen {
+  height: 100dvh;
+  background-color: var(--color-paper-white);
+}
+
+@media (min-width: 640px) {
+  .header {
+    height: auto;
+  }
+
+  .logo {
+    flex: none;
+    /* sem largura fixa: o wordmark tem 90px próprios */
+  }
+
+  .nav {
+    display: flex;
+  }
+
+  .burger,
+  .popup {
+    display: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .demoCta {
+    display: inline-flex;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header,
+  .popup,
+  .burger span {
+    transition: none;
+  }
+}

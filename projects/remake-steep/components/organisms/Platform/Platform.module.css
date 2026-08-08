@@ -1,0 +1,306 @@
+/* max-w-[1360px] + lg:px-20 → conteúdo de 1200px em telas ≥1440. mb-20. */
+.section {
+  width: 100%;
+  max-width: var(--page-max-width);
+  margin-inline: auto;
+  margin-bottom: var(--spacing-80);
+  padding-inline: 0;
+}
+
+.head {
+  padding-inline: var(--spacing-8);
+  text-align: center;
+}
+
+/* 64px / lh 1.3 / ls -0.015em — medido no computed style. As classes
+   `xl:text-7xl` do markup resolvem para 64px no tema deles, não 72px. */
+.heading {
+  font-size: clamp(2.5rem, 1.6rem + 3vw, 4rem); /* 40 → 64px */
+  line-height: 1.3;
+  letter-spacing: var(--tracking-heading);
+}
+
+/* --- Baralho (≥768px) ----------------------------------------------------
+   translateX(3%) inclina o conjunto para a direita — é o que dá a leitura
+   de baralho aberto em vez de grade.                                       */
+.row {
+  display: none;
+  gap: var(--spacing-24);
+  margin-top: var(--spacing-16);
+  transform: translateX(3%);
+  transition: transform 0.3s ease-out;
+}
+
+.slot {
+  flex: 1;
+  min-width: 0;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  aspect-ratio: 4 / 5;
+  padding: var(--spacing-32);
+  border-radius: var(--radius-card);
+  /* origin bottom: os cards crescem para cima, mantendo a base alinhada. */
+  transform-origin: bottom center;
+  transition: transform 0.3s ease-out, background-color 0.5s ease-out,
+    color 0.5s ease-out;
+}
+
+/* Cada card tem seu próprio par de cores quando ativo — só um por vez.
+   Inativo é sempre o mesmo cinza, para o ativo ser inequívoco. */
+.cardActive {
+  background-color: var(--tone-bg);
+  color: var(--tone-ink);
+  transform: scale(1.1);
+}
+
+.cardIdle {
+  background-color: var(--color-light-gray);
+  color: var(--color-dark-gray);
+  transform: scale(0.9) translateX(2%);
+}
+
+.tonePeach {
+  --tone-bg: var(--color-blush-peach);
+  --tone-ink: var(--color-sienna-brown);
+}
+
+.toneBlue {
+  --tone-bg: var(--color-card-blue);
+  --tone-ink: var(--color-card-blue-ink);
+}
+
+.toneGreen {
+  --tone-bg: var(--color-card-green);
+  --tone-ink: var(--color-card-green-ink);
+}
+
+.cardTitle {
+  width: 66.666%;
+  font-size: 26px;
+  font-weight: var(--weight-450);
+  line-height: 1.18em;
+  letter-spacing: -0.24px;
+}
+
+/* O ícone sobe quando o card ativa — 35% → 24%. */
+.iconWrap {
+  position: absolute;
+  right: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: top 0.5s ease-out;
+}
+
+.cardActive .iconWrap {
+  top: 24%;
+}
+
+.cardIdle .iconWrap {
+  top: 35%;
+}
+
+.icon {
+  width: 56%;
+  height: auto;
+}
+
+.cardText {
+  margin-top: auto;
+  font-size: var(--text-meta);
+  line-height: 1.25;
+  transition: opacity 0.5s ease-out 0.1s, transform 0.5s ease-out 0.1s;
+}
+
+.cardActive .cardText {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.cardIdle .cardText {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+/* --- Carrossel (<768px) -------------------------------------------------- */
+.carousel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-16);
+  margin-top: var(--spacing-16);
+}
+
+.track {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--spacing-20);
+  padding: var(--spacing-16) var(--page-padding);
+  overflow-x: auto;
+  overflow-y: visible;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--spacing-24);
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+}
+
+.track::-webkit-scrollbar {
+  display: none;
+}
+
+.slide {
+  flex-shrink: 0;
+  width: 88%;
+  max-width: 440px;
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
+}
+
+.mCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 110vw;
+  max-height: 540px;
+  padding: 9%;
+  border-radius: var(--radius-card);
+  transition: background-color 0.5s ease-out, color 0.5s ease-out;
+}
+
+.mActive {
+  background-color: var(--tone-bg);
+  color: var(--tone-ink);
+}
+
+.mIdle {
+  background-color: var(--color-light-gray);
+  color: var(--color-dark-gray);
+}
+
+.mTitle,
+.mIconWrap,
+.mText {
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.mActive .mTitle,
+.mActive .mIconWrap,
+.mActive .mText {
+  opacity: 1;
+}
+
+.mIdle .mTitle,
+.mIdle .mIconWrap,
+.mIdle .mText {
+  opacity: 0.4;
+}
+
+.mTitle {
+  width: 160px;
+  font-size: var(--text-body-lg);
+  font-weight: var(--weight-450);
+  line-height: 1.25;
+}
+
+.mIconWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--spacing-16);
+}
+
+.mIdle .mIconWrap {
+  transform: scale(0.9);
+}
+
+.mIcon {
+  width: 75%;
+  height: auto;
+}
+
+.mText {
+  font-size: var(--text-micro);
+  line-height: 1.25;
+}
+
+/* --- Prev / next --------------------------------------------------------- */
+.nav {
+  display: flex;
+  gap: var(--spacing-8);
+  padding-inline: var(--page-padding);
+}
+
+.navBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-pill);
+  background-color: var(--color-trans-5);
+  color: rgba(23, 25, 28, 0.5);
+  transition: background-color 0.15s ease, color 0.15s ease, opacity 0.15s ease;
+}
+
+.navBtn:hover:not(:disabled) {
+  background-color: var(--color-trans-10);
+  color: var(--color-ink-black);
+}
+
+.navBtn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+@media (min-width: 768px) {
+  .section {
+    padding-inline: 48px;
+  }
+
+  .row {
+    display: flex;
+    margin-top: var(--spacing-96);
+  }
+
+  .carousel {
+    display: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section {
+    padding-inline: var(--spacing-80);
+  }
+}
+
+@media (min-width: 640px) {
+  .mCard {
+    height: 540px;
+  }
+
+  .mTitle {
+    width: 220px;
+    font-size: 30px;
+  }
+
+  .mText {
+    font-size: var(--text-ui);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .row,
+  .card,
+  .iconWrap,
+  .cardText,
+  .mCard,
+  .mTitle,
+  .mIconWrap,
+  .mText {
+    transition: none;
+  }
+}

@@ -1,0 +1,251 @@
+.footer {
+  position: relative;
+  color: var(--color-paper);
+}
+
+/* Presa ao fundo da VIEWPORT, atrás de tudo. Não rola com a página — o
+   conteúdo é que desliza por cima e a revela. */
+.fixedBottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  height: 800px;
+  background-image: url("/media/footer-bottom.jpg");
+  background-size: cover;
+  background-position: 50% 50%;
+  pointer-events: none;
+}
+
+/* #10210B é MAIS escuro que o --color-ink. E a cor vive AQUI, não no
+   <footer>: é este bloco que cobre a imagem fixa. */
+.slab {
+  position: relative;
+  background-color: var(--color-deep);
+}
+
+.inner {
+  display: grid;
+  grid-template-columns: 784px 1fr;
+  padding: 64px 64px 0;
+}
+
+.left {
+  max-width: 704px;
+}
+
+.logo {
+  display: inline-flex;
+  font-size: 28px;
+  font-weight: var(--weight-light);
+  color: var(--color-paper);
+}
+
+/* 36px/350 — a maior tipografia do rodapé, quase a escala de um título de
+   seção. O manifesto é conteúdo, não letra miúda. */
+.manifesto {
+  margin-top: 28px;
+  max-width: 640px;
+  font-size: 36px;
+  font-weight: var(--weight-350);
+  line-height: 1.22;
+  letter-spacing: -0.36px;
+}
+
+/* Os glyphs alinham pela base do texto e escalam com ele. */
+.glyph {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: -0.12em;
+  color: var(--color-paper);
+}
+
+.glyph svg {
+  width: 0.86em;
+  height: 0.86em;
+}
+
+/* [R+D] numa caixa de contorno — rótulo tratado como carimbo. */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.06em 0.24em;
+  border: 1.4px solid currentColor;
+  border-radius: 4px;
+  font-size: 0.62em;
+  letter-spacing: 0.02em;
+  vertical-align: 0.14em;
+}
+
+.newsLead {
+  /* 23px, não 64: o consent cai em y=294 e o input em 329. */
+  margin-top: 23px;
+  font-size: 16px;
+  font-weight: var(--weight-350);
+  line-height: 1.4;
+}
+
+/* 14px/350, meio apagado — é aviso legal, não convite. */
+.consent {
+  max-width: 640px;
+  margin-top: 4px;
+  font-size: 14px;
+  font-weight: var(--weight-350);
+  line-height: 1.4;
+  opacity: 0.55;
+}
+
+/* 425×52 com radius 8 — o ÚNICO 8px da página, que só usa 16, 32 e pílula.
+   Campo de formulário fica fora do sistema de formas da marca. */
+.form {
+  position: relative;
+  width: 425px;
+  max-width: 100%;
+  margin-top: 15px;
+}
+
+.input {
+  width: 100%;
+  height: 52px;
+  padding: 0 52px 0 20px;
+  border: 1px solid rgba(252, 252, 247, 0.42);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--color-paper);
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: var(--weight-regular);
+}
+
+.input::placeholder {
+  color: rgba(252, 252, 247, 0.72);
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--color-paper);
+}
+
+.submit {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 43px;
+  height: 52px;
+  color: var(--color-paper);
+  transition: opacity 0.2s;
+}
+
+.submit:hover {
+  opacity: 0.7;
+}
+
+/* Caixa de contorno com o aviso do FDA — obrigatório em suplemento. */
+.disclaimer {
+  margin-top: 33px;
+  max-width: 398px;
+  padding: 14px 16px;
+  border: 1px solid rgba(252, 252, 247, 0.28);
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: var(--weight-350);
+  line-height: 1.5;
+  opacity: 0.85;
+}
+
+/* Três colunas de 176px, duas fileiras. */
+.cols {
+  display: grid;
+  grid-template-columns: repeat(3, 176px);
+  /* y=266 na segunda fileira: 64 (topo) + 18 (título) + 16 + 4 linhas +
+     o vão. row-gap 22 fecha a conta. */
+  row-gap: 22px;
+  align-content: start;
+}
+
+.colTitle {
+  font-size: 12px;
+  font-weight: var(--weight-medium);
+  line-height: 18px;
+  letter-spacing: normal;
+  text-transform: uppercase;
+  opacity: 0.55;
+}
+
+.list {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.link {
+  font-size: 16px;
+  font-weight: var(--weight-350);
+  line-height: 22px;
+  letter-spacing: -0.16px;
+  transition: opacity 0.2s;
+}
+
+.link:hover {
+  opacity: 0.68;
+}
+
+/* Faixa animada de largura total — 152 quadros, 1600×320. A animação vem do
+   arquivo, não de CSS.
+
+   `contain`, NÃO `cover`: a arte é 5:1 e a caixa é 7.5:1. Com cover o GIF é
+   escalado até preencher e as letras são cortadas em cima e embaixo. */
+.strip {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 192px;
+  margin-top: 56px;
+  object-fit: contain;
+}
+
+/* Fora do bloco escuro: fica SOBRE a imagem revelada. O padding generoso é
+   o que abre a faixa da imagem — sem ele o slab encosta no fim da página e
+   a camada fixa nunca aparece. */
+.copy {
+  position: relative;
+  padding: 56px 0 24px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: var(--weight-350);
+  line-height: 1.4;
+  letter-spacing: -0.036px;
+  opacity: 0.7;
+}
+
+@media (max-width: 1279px) {
+  .inner {
+    grid-template-columns: 1fr;
+    gap: 56px;
+    padding: 48px 24px 0;
+  }
+
+  .manifesto {
+    font-size: clamp(1.5rem, 1.2rem + 1.6vw, 2.25rem);
+  }
+
+  .newsLead {
+    margin-top: 40px;
+  }
+
+  .cols {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    row-gap: 40px;
+    column-gap: 24px;
+  }
+
+  .strip {
+    height: 120px;
+    margin-top: 56px;
+  }
+}

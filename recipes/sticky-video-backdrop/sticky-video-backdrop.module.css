@@ -1,0 +1,43 @@
+/* Fundo de vídeo fixo — extraído de HeroExperience.module.css
+   Ver RECIPE.md. O valor crítico é o margin-top: -100vh no .overlay. */
+
+.experience {
+  position: relative;
+  background: transparent;
+}
+
+/* Vídeo preso enquanto o conteúdo rola por cima.
+   sticky (não fixed) — solta quando .experience termina. */
+.videoBg {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  z-index: 0;
+}
+
+.canvas {
+  position: absolute;
+  inset: 0;
+  background-color: var(--color-void);
+}
+
+.video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  /* Rebaixa o vídeo em vez de usar gradiente de overlay — texto branco fica
+     legível sem a faixa cinza. */
+  opacity: 0.875;
+}
+
+/* Cancela o 100vh que o sticky reserva no fluxo. Sem isto, o usuário rola uma
+   tela inteira de vídeo vazio antes de ver o conteúdo. */
+.overlay {
+  position: relative;
+  z-index: 1;
+  margin-top: -100vh;
+  color: var(--color-paper);
+}

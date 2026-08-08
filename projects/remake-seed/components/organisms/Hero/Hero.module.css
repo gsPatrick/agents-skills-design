@@ -1,0 +1,177 @@
+/* 844px de altura medidos. O fundo ink aparece enquanto a imagem carrega —
+   sem ele há um flash branco atrás de um texto escuro.
+
+   O margin-top negativo é estrutural, não cosmético: no original a seção
+   começa em y=32 enquanto o nav ocupa 40–96. Ou seja o hero SOBE por baixo
+   do nav, e os 56px de nav flutuam sobre a imagem.
+     barra 0–40 · nav 40–96 · hero a partir de 32  →  −64px
+   Sem isso o título cai em y=327 em vez dos 231 medidos. */
+.hero {
+  position: relative;
+  margin-top: -64px;
+  /* A altura é RELATIVA À VIEWPORT, com teto. Medido em três janelas:
+       vh 900  → 844   (900 − 56)
+       vh 760  → 704   (760 − 56)
+       vh 1000 → 900   (travou no teto, não 944)
+     Os 56px subtraídos são a altura do nav. Eu havia cravado 844px fixo,
+     que só acerta numa janela de exatamente 900px de altura — em telas
+     maiores a foto ficava curta. */
+  height: calc(100vh - 56px);
+  max-height: 900px;
+  background-color: var(--color-ink);
+  /* visible, não hidden: o recorte é feito pelo .media. */
+  overflow: visible;
+}
+
+/* O arredondamento vive num wrapper interno com overflow:hidden, NÃO na
+   <section>. A seção fica verde (#1C3A13) por baixo, e é esse verde que
+   aparece nos dois cantos inferiores.
+   Medido: border-radius 0 0 32px 32px. */
+.media {
+  position: absolute;
+  inset: 0;
+  display: block;
+  border-radius: 0 0 32px 32px;
+  overflow: hidden;
+}
+
+.mediaImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Conteúdo ancorado à esquerda em x=56, não centralizado. */
+.content {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  padding-left: 56px;
+  padding-right: 24px;
+}
+
+/* y=231 medido. O título é o primeiro elemento posicionado. */
+.title {
+  position: absolute;
+  /* Os valores medidos (231/405/475) são coordenadas de VIEWPORT no
+     original. A seção começa em y=32, então dentro dela o top é −32:
+     231−32 = 199 · 405−32 = 373 · 475−32 = 443.
+     Aplicar o valor de viewport direto empurrava tudo 32px para baixo. */
+  top: 199px;
+  left: 56px;
+  /* width, não max-width: um elemento absolute com max-width faz
+     shrink-to-fit e a caixa vira a largura da linha mais longa (429px em vez
+     dos 750 medidos). Com width fixo a caixa é 750 e as 3 quebras forçadas
+     dão os 158px de altura. */
+  width: 750px;
+  font-size: 48px;
+  font-weight: var(--weight-350);
+  /* 52.8 / 48 = 1.1 */
+  line-height: 1.1;
+  letter-spacing: -1.2px;
+  color: var(--color-ink);
+}
+
+/* y=405 na viewport → 373 dentro da seção. largura 426 */
+.lead {
+  position: absolute;
+  top: 373px;
+  left: 56px;
+  max-width: 426px;
+  font-size: 16px;
+  font-weight: var(--weight-350);
+  /* 20.8 / 16 = 1.3 */
+  line-height: 1.3;
+  letter-spacing: -0.16px;
+  color: var(--color-ink);
+}
+
+/* 146×52 — padding maior que a pílula do header (16px 24px vs 10px 16px).
+   A posição agora vem do wrapper .actions. */
+.cta {
+  padding: 16px 24px;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: -0.04px;
+}
+
+/* Abaixo de lg o posicionamento absoluto não serve: o texto passa a fluir. */
+@media (max-width: 1023px) {
+  .hero {
+    height: auto;
+    min-height: 640px;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    padding: 96px 24px 64px;
+  }
+
+  .title,
+  .lead,
+  .cta {
+    position: static;
+    top: auto;
+    left: auto;
+  }
+
+  .title {
+    font-size: clamp(2rem, 1.4rem + 3vw, 3rem);
+  }
+
+  /* Em telas estreitas as quebras forçadas criam linhas órfãs. */
+  .title br {
+    display: none;
+  }
+
+}
+
+/* --- Ações: pílula + link com seta ---------------------------------------- */
+.actions {
+  position: absolute;
+  top: 443px;
+  left: 56px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+/* "Shop Now →" — link sublinhado, sem fundo. A seta faz parte do rótulo. */
+.shopLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  font-weight: var(--weight-350);
+  letter-spacing: -0.04px;
+  color: var(--color-ink);
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 1px;
+}
+
+.shopArrow {
+  display: inline-block;
+  transition: transform 0.25s var(--ease-out);
+}
+
+.shopLink:hover .shopArrow {
+  transform: translateX(3px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shopArrow {
+    transition: none;
+  }
+}
+
+@media (max-width: 1023px) {
+  .actions {
+    position: static;
+    top: auto;
+    left: auto;
+  }
+}

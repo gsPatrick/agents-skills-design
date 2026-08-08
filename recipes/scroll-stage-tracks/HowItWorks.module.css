@@ -1,0 +1,387 @@
+/* KEYFRAMES DENTRO DO MÓDULO — obrigatório.
+
+   CSS Modules hasheia o NOME do @keyframes e também a referência em
+   `animation`. Com os keyframes no globals.css (sem hash) e a referência
+   aqui (hasheada), a animação aponta para um nome que não existe e não faz
+   NADA — sem erro, sem aviso.
+
+   É a mesma armadilha do Steep, onde um `animation` inline referenciava um
+   keyframe de módulo. A regra: keyframe e referência têm que morar no
+   mesmo arquivo.
+------------------------------------------------------------------------- */
+@keyframes howitworks-bg-enter {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
+}
+
+@keyframes howitworks-bg-enter-reverse {
+  from { transform: translateY(-100%); }
+  to   { transform: translateY(0); }
+}
+
+/* O fundo ANTERIOR não fica parado: ele desliza 11rem enquanto o novo
+   entra. É o que dá profundidade — as duas camadas se movem em velocidades
+   diferentes, como parallax. Eu tinha posto 0 → 0 e a troca ficou seca. */
+@keyframes howitworks-bg-prev {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-11rem); }
+}
+
+@keyframes howitworks-bg-prev-reverse {
+  from { transform: translateY(0); }
+  to   { transform: translateY(11rem); }
+}
+
+@keyframes howitworks-content-in {
+  from { transform: translateY(1.5rem); }
+  to   { transform: translateY(0); }
+}
+
+@keyframes howitworks-content-in-reverse {
+  from { transform: translateY(-1.5rem); }
+  to   { transform: translateY(0); }
+}
+
+@keyframes howitworks-content-out {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-1.5rem); }
+}
+
+@keyframes howitworks-content-out-reverse {
+  from { transform: translateY(0); }
+  to   { transform: translateY(1.5rem); }
+}
+
+/* 800vh de pista — oito viewports para quatro passos, 200vh cada. É o que
+   dá tempo de ler antes de trocar. */
+.howitworks {
+  position: relative;
+  width: 100%;
+  height: 800vh;
+  color: #fff;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+/* O palco GRUDA e não sai. Todo o resto acontece dentro dele. */
+.stage {
+  position: sticky;
+  top: 0.5rem;
+  width: calc(100% - 1rem);
+  height: calc(100vh - 1rem);
+  margin: 0 0.5rem;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.bgSlot {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  border-radius: 0.5rem;
+  visibility: hidden;
+  pointer-events: none;
+  overflow: hidden;
+  transform: translate(0);
+}
+
+/* O que entra sobe de baixo; o que sai continua onde estava e é coberto.
+   z-index 2 no ativo garante que ele passe POR CIMA do anterior. */
+.bgActive {
+  z-index: 2;
+  visibility: visible;
+  animation: howitworks-bg-enter 0.6s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+.bgPrev {
+  z-index: 1;
+  visibility: visible;
+  animation: howitworks-bg-prev 0.6s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+/* Rolando para CIMA o movimento inverte: o novo entra por cima, não por
+   baixo. Sem isso a animação contradiz o gesto. Note a duração maior
+   (800ms contra 600) e a curva diferente. */
+.reverse .bgActive {
+  animation: howitworks-bg-enter-reverse 800ms cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+.reverse .bgPrev {
+  animation: howitworks-bg-prev-reverse 800ms cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+.media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0;
+}
+
+/* Gradiente nas DUAS bordas laterais, transparente no miolo: escurece onde
+   o texto pousa (esquerda) e onde a navegação vive (direita), sem sujar o
+   centro da imagem. */
+.gradient {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(
+    90deg,
+    #00000080,
+    #0000 25% 50%,
+    #0000 75%,
+    #00000080
+  );
+}
+
+/* --- Conteúdo ------------------------------------------------------------
+   top/bottom 0 + translateY(-50%) no ativo = centrado na vertical. */
+.contentSlot {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 3rem;
+  z-index: 3;
+  width: 32rem;
+  max-width: calc(100% - 8rem);
+  pointer-events: none;
+}
+
+.content {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  max-width: 28rem;
+  opacity: 0;
+  pointer-events: none;
+  transition-property: opacity, transform;
+  transition-duration: 0.4s, 0.6s;
+  transition-timing-function: cubic-bezier(0.22, 0.61, 0.36, 1),
+    cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.contentActive {
+  opacity: 1;
+  pointer-events: auto;
+  transition-delay: 60ms;
+  transform: translateY(-50%);
+}
+
+.reverse .content {
+  animation: howitworks-content-out-reverse 200ms cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+/* 220ms de atraso: o conteúdo entra DEPOIS do fundo começar a subir. */
+.reverse .contentActive {
+  animation: howitworks-content-in-reverse 900ms
+    cubic-bezier(0.22, 0.61, 0.36, 1) 220ms both;
+}
+
+.title {
+  margin: 0 0 0.5rem;
+  font-size: 2.5rem;
+  line-height: 1.1;
+  letter-spacing: -0.0225em;
+  transition: color 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.body {
+  margin: 0;
+  font-size: 1.125rem;
+  line-height: 1.4;
+  color: #fff;
+  transition: color 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* O primeiro passo tem fundo claro — texto vira #111. A transição de cor
+   é a mesma dos outros, então a troca de tema acompanha o slide. */
+.dark {
+  color: #111;
+}
+
+/* --- FAQ ------------------------------------------------------------------
+   290ms de atraso, 70ms depois do conteúdo. */
+.faqSlot {
+  position: absolute;
+  bottom: 4.5rem;
+  left: 3rem;
+  z-index: 3;
+  width: 30rem;
+  max-width: calc(100% - 8rem);
+}
+
+.faq {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.faqActive {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(0);
+}
+
+.reverse .faqActive {
+  animation: howitworks-content-in-reverse 900ms
+    cubic-bezier(0.22, 0.61, 0.36, 1) 290ms both;
+}
+
+.faqItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  color: inherit;
+  font-size: 0.9375rem;
+  text-align: left;
+  transition: filter 0.2s ease-out;
+}
+
+.faqItem:hover {
+  filter: brightness(90%);
+}
+
+.faqIconWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.25rem;
+  background-color: #ffffff1a;
+}
+
+/* --- Navegação ------------------------------------------------------------
+   O rótulo EXPANDE de 0 para 18rem quando ativo — o item cresce em vez de
+   só mudar de cor. */
+.nav {
+  position: absolute;
+  top: 50%;
+  right: 3rem;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  transform: translateY(-50%);
+}
+
+.navItem {
+  position: relative;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0 0 0 0.625rem;
+  color: rgba(255, 255, 255, 0.55);
+  /* 1.25rem — a navegação tem peso, não é legenda. */
+  font-size: 1.25rem;
+  background: none;
+  text-align: right;
+  transition: color 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* Barra vertical que cresce em scaleY — só no ativo. */
+.navItem::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 1px;
+  height: 100%;
+  background: #fff;
+  opacity: 0;
+  transform: translate(0, -50%) scaleY(0);
+  transition: opacity 0.3s, transform 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.navActive {
+  color: #fff;
+}
+
+.navActive::before {
+  opacity: 1;
+  transform: translate(0, -50%) scaleY(1);
+}
+
+/* Os rótulos ficam SEMPRE visíveis — a base não tem `max-width`. Eu tinha
+   posto 0 deduzindo da regra `.is-active { max-width: 18rem }`, mas essa
+   existe só como teto, não como revelação. O que muda entre ativo e
+   inativo é a COR do item, herdada pelo rótulo. */
+.navLabel {
+  flex: 1;
+  max-width: 18rem;
+  white-space: nowrap;
+  text-align: right;
+}
+
+/* Números tabulares: o 01 e o 04 ocupam a mesma largura, então a coluna
+   não treme ao trocar. */
+.navNum {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Sobre fundo claro toda a navegação vira escura. */
+.navDark {
+  color: rgba(17, 17, 17, 0.55);
+}
+
+.navDark.navActive {
+  color: #111;
+}
+
+.navDark::before {
+  background: #111;
+}
+
+@media (max-width: 991px) {
+  .contentSlot,
+  .faqSlot {
+    left: 1.5rem;
+    max-width: calc(100% - 3rem);
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .title {
+    font-size: 1.75rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bg,
+  .content,
+  .faq {
+    animation: none !important;
+    transition: none !important;
+  }
+}

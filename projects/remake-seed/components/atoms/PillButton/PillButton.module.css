@@ -1,0 +1,45 @@
+.pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 16px;
+  border-radius: var(--radius-pill);
+  font-size: var(--text-nav);
+  font-weight: var(--weight-350);
+  /* O original mede 113px de largura com padding 16+16 → 81px de texto.
+     O meu dá 74px. Os 7px que faltam vêm do mesmo desvio de métrica do
+     subset; compenso com min-width em vez de esticar o tracking, que
+     mudaria o desenho do texto. */
+  letter-spacing: -0.035px;
+  /* 23px explícito, NÃO `normal`.
+     O original reporta line-height: normal e mede 43px de altura. Mas com
+     `normal` a minha caixa dá 37px — as métricas verticais do .woff2 subset
+     que baixei diferem do arquivo completo que eles servem.
+     Quando o valor declarado do original não reproduz a medida do original,
+     vale a medida. 10 + 23 + 10 = 43. */
+  line-height: 23px;
+  white-space: nowrap;
+  transition: opacity 0.2s var(--ease-out);
+}
+
+.solid {
+  background-color: var(--color-ink);
+  color: var(--color-paper);
+}
+
+.solid:hover {
+  opacity: 0.88;
+}
+
+/* Link de texto simples — o "Sign in". 28px de altura: 7 + 14 + 7. */
+.text {
+  padding: 7px 14px;
+  line-height: 14px;
+  font-weight: var(--weight-regular);
+  letter-spacing: normal;
+  color: var(--color-ink);
+}
+
+.text:hover {
+  opacity: 0.7;
+}

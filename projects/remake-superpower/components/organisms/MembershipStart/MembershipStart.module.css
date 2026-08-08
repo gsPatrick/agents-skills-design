@@ -1,0 +1,450 @@
+/* ---------------------------------------------------------------------------
+   section_sp3-membership — "Your membership starts here"
+
+   A seção em si zera o padding (`.section_sp3-membership { padding: 0 }`); todo
+   o respiro vem do par de utilitárias que ela embrulha:
+     .page-padding             → 2.5rem laterais
+     .padding-section-medium   → 5rem em cima e embaixo
+   Mantive as duas separadas em .pagePadding porque é ali que a quebra de
+   767px muda SÓ a lateral (1.5rem), sem tocar no vertical.
+--------------------------------------------------------------------------- */
+.section {
+  padding: 0;
+}
+
+.pagePadding {
+  padding: 5rem 2.5rem;
+}
+
+.container {
+  width: 100%;
+  max-width: 80rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* align-items:center é o que faz a coluna direita (curta) flutuar no meio da
+   esquerda (que tem 44.625rem de slider). Sem isso o preço encostaria no topo. */
+.wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: center;
+}
+
+/* min-width:0 é obrigatório: sem ele o slide de largura fixa em px inflaria a
+   coluna do grid (1fr respeita o conteúdo mínimo) e o carrossel vazaria.
+   O max-width 39rem vem do próprio script do original — ele não está no CSS,
+   é escrito inline no boot. A 1440px a coluna já sai em ~562px, então o teto
+   só passa a valer em telas largas e no tablet (onde o grid vira 1 coluna e a
+   esquerda ficaria full-width sem ele). */
+.left {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  min-width: 0;
+  width: 100%;
+  max-width: 39rem;
+}
+
+.slider {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  height: 44.625rem;
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+/* O gap de 1rem NÃO aparece em repouso: cada slide tem exatamente a largura do
+   slider e o transform vai até o offsetLeft do slide atual, então o vão só é
+   visível durante os 750ms da troca — é um respiro de movimento, não de layout.
+   (No CSS base o gap é 0; quem sobe para 1rem é o script.) */
+.slides {
+  display: flex;
+  height: 100%;
+  gap: 1rem;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: pan-y;
+  will-change: transform;
+}
+
+.arrastando {
+  cursor: grabbing;
+}
+
+/* zinc-50 por baixo: enquanto o avif não decodifica o slide fica claro em vez
+   de piscar o fundo branco da página através do raio de 0.75rem. */
+.slide {
+  position: relative;
+  flex-shrink: 0;
+  height: 100%;
+  background-color: #fafafa;
+  overflow: hidden;
+}
+
+/* max-width:none derruba o reset global de img (max-width:100%), que brigaria
+   com a largura travada em px pelo carrossel. */
+.slideImg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.bars {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-grow: 1;
+}
+
+/* A barra ativa cresce 8× em flex-grow, e é ESSA transição (não o preenchimento)
+   que dá o efeito de "abrir" o indicador. */
+.bar {
+  position: relative;
+  flex: 1;
+  height: 0.25rem;
+  border-radius: 99px;
+  background-color: rgba(24, 24, 27, 0.2);
+  cursor: pointer;
+  overflow: hidden;
+  transition: flex-grow 0.75s cubic-bezier(0.45, 0, 0.55, 1);
+}
+
+/* Só flex-grow. A regra original também pinta a trilha ativa de #18181b, mas o
+   script escreve inline `rgba(24,24,27,0.2)` em TODAS as barras a cada troca —
+   ou seja, a cor da regra nunca chega à tela. Reproduzo o resultado (trilha
+   sempre clara, preenchimento preto por cima), não a intenção abandonada. */
+.barAtiva {
+  flex-grow: 8;
+}
+
+.barFill {
+  display: block;
+  width: 0;
+  height: 100%;
+  border-radius: 99px;
+  background-color: #18181b;
+}
+
+/* 5s é o intervalo do autoplay: a barra É o cronômetro, não uma decoração
+   sincronizada com ele — o fim da animação é o que vira a página. */
+.barFillAtiva {
+  animation: preencher 5s linear forwards;
+}
+
+.pausado {
+  animation-play-state: paused;
+}
+
+@keyframes preencher {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+/* overflow:hidden no contador é o que recorta o número enquanto ele desliza
+   para fora — sem isso o "3" saindo invadiria as barras. */
+.counter {
+  flex-shrink: 0;
+  color: rgba(24, 24, 27, 0.5);
+  font-size: 0.875rem;
+  line-height: 1.3125rem;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.counterNum {
+  display: inline-block;
+  transition: transform 0.25s ease-out, opacity 0.25s ease-out;
+}
+
+/* Sai pelo lado CONTRÁRIO ao avanço e o próximo entra pelo lado do avanço:
+   --dir carrega o sinal (+1 adiante, −1 atrás) para os dois lados usarem a
+   mesma conta espelhada. ease-in na saída, ease-out na entrada. */
+.counterSaindo {
+  transition-timing-function: ease-in;
+  transform: translateX(calc(var(--dir) * -100%));
+  opacity: 0;
+}
+
+.counterEntrando {
+  animation: contadorEntra 0.25s ease-out both;
+}
+
+@keyframes contadorEntra {
+  from {
+    transform: translateX(calc(var(--dir) * 100%));
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* --- coluna direita ------------------------------------------------------ */
+
+.right {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  min-width: 0;
+}
+
+.heading {
+  font-size: 3rem;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.0225em;
+}
+
+/* O recuo de .5rem alinha o TEXTO dos bullets com o resto da coluna: o ponto
+   (0.25rem) mais o gap (0.75rem) empurrariam a frase 1rem para dentro. */
+.bullets {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-left: 0.5rem;
+}
+
+.bulletItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  color: #71717a;
+}
+
+/* align-items:flex-start + top:.75rem em vez de centralizar: assim o ponto fica
+   na altura da PRIMEIRA linha mesmo quando o texto quebra em duas. */
+.bulletDot {
+  position: relative;
+  top: 0.75rem;
+  flex-shrink: 0;
+  width: 0.25rem;
+  height: 0.25rem;
+  border-radius: 50%;
+  background-color: rgba(9, 9, 11, 0.5);
+}
+
+.bulletText {
+  font-size: 1.125rem;
+  line-height: 1.4;
+  letter-spacing: -0.01rem;
+}
+
+/* Sem margin-top no desktop: a classe `is-margin-top` do original não tem regra
+   composta nessa largura — ela só ganha os 0.75rem abaixo de 767px, onde o gap
+   de 1.25rem da coluna fica curto demais para separar bullets de preço. */
+.pricing {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.price {
+  color: #18181b;
+  font-size: 4.375rem;
+  line-height: 4.625rem;
+}
+
+.priceLabel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.pricePeriod {
+  color: #18181b;
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+.priceBilling {
+  color: rgba(24, 24, 27, 0.5);
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+/* align-items:stretch é o que dá largura total ao botão — o .cta é inline-flex
+   e sozinho encolheria no texto. */
+.ctaWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 1rem;
+  width: 100%;
+}
+
+.ctaWrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.cta {
+  display: inline-flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.25rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background-color: #111;
+  color: #fff;
+  cursor: pointer;
+  user-select: none;
+  overflow: hidden;
+  transition: background-color 0.25s var(--ease-btn);
+}
+
+/* #111 → #3d3d3d no hover: CLAREIA em vez de escurecer. O preto do botão já é
+   quase o fundo do rodapé; escurecer não teria para onde ir. */
+.cta:hover {
+  background-color: #3d3d3d;
+}
+
+.cta:active {
+  background-color: #27272a;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* max-width 35rem com centro: as três badges cabem numa linha até ~35rem e
+   quebram centralizadas depois — por isso wrap + justify center, e não grid. */
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 35rem;
+}
+
+.badge {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.5rem;
+  color: #71717a;
+  font-size: 0.875rem;
+}
+
+.badgeIcon {
+  width: 1.125rem;
+}
+
+/* O ícone do "Cancel anytime" é só um traço de check, sem círculo em volta —
+   a 1.125rem ele pesaria mais que os outros dois. */
+.badgeIconMenor {
+  width: 0.875rem;
+}
+
+.disclaimer {
+  color: rgba(9, 9, 11, 0.4);
+  text-align: center;
+  font-size: 0.75rem;
+  line-height: 1.125rem;
+  letter-spacing: 0.005em;
+}
+
+/* --- quebras -------------------------------------------------------------- */
+
+/* 991: vira uma coluna só. A esquerda MANTÉM o teto de 39rem herdado do boot,
+   então o carrossel não estica junto com o texto — fica um bloco alinhado à
+   esquerda, mais estreito que a coluna de conteúdo. */
+@media (max-width: 991px) {
+  .pagePadding {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+
+  .wrapper {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .slider {
+    height: 30rem;
+  }
+
+  .heading {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .pagePadding {
+    padding: 3rem 1.5rem;
+  }
+
+  .bulletDot {
+    top: 0.65rem;
+  }
+
+  .bulletText {
+    font-size: 1rem;
+  }
+
+  .pricing {
+    margin-top: 0.75rem;
+  }
+
+  .price {
+    font-size: 3rem;
+    line-height: 3.5rem;
+  }
+
+  .heading {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 479px) {
+  .wrapper {
+    gap: 2rem;
+  }
+
+  .right {
+    gap: 1rem;
+  }
+
+  /* Sem o recuo os bullets ganham de volta 0.5rem de linha — em 320px isso é
+     quase uma palavra por linha. */
+  .bullets {
+    padding-left: 0;
+  }
+
+  .price {
+    font-size: 2.5rem;
+    line-height: 3rem;
+  }
+
+  .priceLabel {
+    gap: 0;
+  }
+
+  /* Negativo de propósito: come metade do gap de 1rem da coluna para o botão
+     subir e caber acima da dobra junto com o preço. */
+  .ctaWrapper {
+    margin-top: -0.5rem;
+  }
+}

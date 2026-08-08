@@ -1,0 +1,170 @@
+/* Faixa escura #121212 — o único bloco preto da página.
+   Três camadas empilhadas, como no original:
+     1. cor sólida
+     2. gradiente branco a 10% descendo (dá profundidade ao topo)
+     3. ruído feTurbulence em mix-blend-mode: overlay
+   Sem o ruído o preto fica chapado e "digital"; ele é o que dá textura. */
+.section {
+  position: relative;
+  padding-block: clamp(64px, 8vw, 120px) clamp(64px, 9vw, 160px);
+  background-color: #121212;
+  color: var(--color-paper-white);
+  display: flex;
+  justify-content: center;
+}
+
+.veil,
+.grain {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.veil {
+  opacity: 0.5;
+  background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0) 10%,
+      rgba(255, 255, 255, 0.1) 100%
+    ),
+    #121212;
+}
+
+.grain {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.25' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='discrete' tableValues='0 1'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 80px 80px;
+  mix-blend-mode: overlay;
+  opacity: 0.3;
+}
+
+.inner {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: var(--page-max-width);
+  margin-inline: auto;
+  padding-inline: var(--page-padding);
+}
+
+/* --- Cabeçalho ----------------------------------------------------------- */
+.head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-16);
+  margin-bottom: clamp(56px, 7vw, 112px);
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: var(--spacing-24);
+  font-size: var(--text-caption);
+  color: var(--color-paper-white);
+}
+
+.eyebrowArrow {
+  opacity: 0.45;
+}
+
+.title {
+  color: var(--color-paper-white);
+  max-width: 16ch;
+  /* 64px — medido no computed style do original; o token global
+     --text-heading-lg escala até 72px e fica grande demais. */
+  font-size: clamp(2.5rem, 1.6rem + 3vw, 4rem);
+}
+
+.subhead {
+  font-size: var(--text-body-lg);
+  line-height: 1.35;
+  color: rgba(255, 255, 255, 0.6);
+  max-width: 34ch;
+}
+
+/* Pílula clara translúcida — a inversão do `soft` sobre fundo escuro. */
+.cta {
+  margin-top: var(--spacing-8);
+  height: 44px;
+  padding-inline: var(--spacing-20);
+  font-size: var(--text-ui);
+  background-color: rgba(255, 255, 255, 0.08);
+  color: var(--color-paper-white);
+}
+
+.cta:hover {
+  background-color: rgba(255, 255, 255, 0.14);
+}
+
+.ctaArrow {
+  display: inline-block;
+  margin-left: 2px;
+  color: rgba(255, 255, 255, 0.5);
+  transition: transform 0.25s var(--ease-out);
+}
+
+.cta:hover .ctaArrow {
+  transform: translateX(3px);
+}
+
+/* --- Grade de recursos ---------------------------------------------------
+   NÃO são cards. São colunas divididas por filetes verticais de 1px, sem
+   fundo e sem raio. Um card com superfície aqui competiria com o painel. */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  margin-top: clamp(56px, 7vw, 104px);
+}
+
+.feature {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-12);
+  padding: var(--spacing-24) var(--spacing-24) var(--spacing-24) 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: var(--spacing-32);
+  color: var(--color-paper-white);
+}
+
+.featureTitle {
+  font-size: var(--text-ui);
+  font-weight: var(--weight-480);
+  color: var(--color-paper-white);
+}
+
+.featureText {
+  font-size: var(--text-caption);
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.55);
+  max-width: 32ch;
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .feature {
+    border-top: none;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0 var(--spacing-32);
+  }
+
+  .feature:first-child {
+    padding-left: 0;
+  }
+
+  .feature:last-child {
+    border-right: none;
+  }
+}

@@ -1,0 +1,250 @@
+/* padding vertical 7.5rem, ZERO horizontal — o carrossel sangra. */
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  padding: 7.5rem 0;
+  background-color: #fafafa;
+  color: #18181b;
+  overflow: hidden;
+}
+
+.pagePadding {
+  padding-inline: 2.5rem;
+}
+
+.container {
+  width: 100%;
+  max-width: 80rem;
+  margin-inline: auto;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 39rem;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9375rem;
+}
+
+.h2 {
+  margin: 0;
+  font-size: 3rem;
+  font-weight: 400;
+  line-height: 1.0833;
+  letter-spacing: -0.0675rem;
+}
+
+.sub {
+  font-size: 1.125rem;
+  line-height: 1.4;
+  color: rgba(24, 24, 27, 0.6);
+}
+
+.slider {
+  width: 100%;
+  margin-top: 3rem;
+  padding-left: 2.5rem;
+}
+
+/* overflow visible: os cards vizinhos aparecem fora da faixa. */
+.swiper {
+  position: relative;
+  width: 100%;
+  overflow: visible;
+}
+
+/* Curva quase simétrica — ease-in-out suave, diferente do expo-out do resto
+   da página. Slide de carrossel pede aceleração e freio parelhos. */
+.track {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  user-select: none;
+  cursor: grab;
+  transition: transform 0.75s cubic-bezier(0.45, 0, 0.55, 1);
+}
+
+.track:active {
+  cursor: grabbing;
+}
+
+/* Inativos a 50%: o próximo depoimento aparece apagado na borda — dá para
+   ler que existe sem competir com o atual. */
+.slide {
+  position: relative;
+  display: flex;
+  flex-shrink: 0;
+  width: auto;
+  height: auto;
+  opacity: 0.5;
+  transition: opacity 0.6s ease;
+}
+
+.slideActive {
+  opacity: 1;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 2rem;
+  width: 45.8rem;
+  margin-right: 2.6rem;
+  border-right: 1px solid #18181b1a;
+  border-radius: 0;
+}
+
+.cardMedia {
+  width: 100%;
+  height: 20rem;
+  border-radius: 0.5rem;
+  background-color: #fafafa;
+  overflow: hidden;
+}
+
+/* object-position 0% 50%: ancorada à ESQUERDA, não centralizada. Os
+   retratos têm a pessoa à esquerda do quadro, então o corte à direita
+   nunca remove o rosto. */
+.cardImage {
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 0% 50%;
+  border-radius: 8px;
+}
+
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0 2rem 0 1rem;
+}
+
+.cardName,
+.cardQuote {
+  margin: 0;
+  font-size: 1.125rem;
+  line-height: 1.4444;
+  letter-spacing: -0.0056rem;
+}
+
+.cardName {
+  color: rgba(24, 24, 27, 0.6);
+}
+
+.cardCaption {
+  margin: 0;
+  max-width: 100%;
+  font-size: 0.9375rem;
+  color: #18181b80;
+}
+
+.navWrap {
+  padding-inline: 2.5rem;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 46rem;
+  margin-top: 4rem;
+}
+
+/* BARRAS, não pontos: dividem a largura por flex 1 1 0 e a ativa cresce
+   para flex-grow 6. Vira régua de progresso — posição E quantidade no
+   mesmo elemento. */
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+/* A trilha da barra fica sempre a 20%; quem marca o progresso é o FILL
+   por dentro, não a opacidade do conjunto. */
+.bullet {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  height: 0.25rem;
+  margin: 0;
+  padding: 0;
+  border-radius: 6.1875rem;
+  background-color: rgba(24, 24, 27, 0.2);
+  overflow: hidden;
+  cursor: pointer;
+  transition: flex-grow 0.75s cubic-bezier(0.45, 0, 0.55, 1);
+}
+
+/* flex-grow 8 (medido no driver, não 6 como o CSS estático sugeria). */
+.bulletActive {
+  flex-grow: 8;
+}
+
+.bulletFill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0;
+  border-radius: 6.1875rem;
+  background: #18181b;
+  pointer-events: none;
+}
+
+.counter {
+  flex-shrink: 0;
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  white-space: nowrap;
+  color: #18181b80;
+}
+
+@media (max-width: 991px) {
+  .section {
+    padding: 4rem 0;
+  }
+
+  .pagePadding,
+  .slider,
+  .navWrap {
+    padding-inline: 1.25rem;
+  }
+
+  .h2 {
+    font-size: 2rem;
+  }
+
+  .card {
+    width: 82vw;
+    margin-right: 1rem;
+  }
+
+  .cardMedia {
+    height: 14rem;
+  }
+
+  .cardName {
+    font-size: 0.75rem;
+  }
+
+  .cardQuote {
+    font-size: 0.875rem;
+  }
+}

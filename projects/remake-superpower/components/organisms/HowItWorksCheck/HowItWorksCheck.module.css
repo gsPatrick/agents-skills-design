@@ -1,0 +1,194 @@
+/* z-index 2 + relative: a seção precisa vencer o que vem antes na pilha. */
+.section {
+  position: relative;
+  z-index: 2;
+  background-color: #fff;
+}
+
+.pagePadding {
+  padding-inline: 2.5rem;
+  /* .padding-section-large */
+  padding-block: 7rem;
+}
+
+.container {
+  width: 100%;
+  max-width: 80rem;
+  margin-inline: auto;
+}
+
+/* CENTRALIZADO nos dois eixos, gap 3rem. */
+.component {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+}
+
+/* `.title_row.is-centered2.is-small-gap` — três classes, três regras.
+   Eu usei só a base (.title_row): esquerda, 45rem, gap 1.5rem. As
+   variantes mandam: CENTRALIZADO, 50rem, gap 0.5rem. */
+.titleRow {
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.5rem;
+  max-width: 50rem;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.h2 {
+  font-size: 2.5rem;
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -0.0225em;
+}
+
+.sub {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: rgba(24, 24, 27, 0.6);
+}
+
+/* 4 colunas, gap .5rem — apertado de propósito: as fotos quadradas formam
+   uma fita, não quatro cartões soltos. */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+}
+
+/* STAGGER — escalonado por índice, ao contrário do atraso fixo da Seed.
+   Curvas DIFERENTES por propriedade: opacidade linear, deslocamento com
+   expo-out. O item termina de posicionar antes de terminar de aparecer. */
+.grid > * {
+  opacity: 0;
+  transform: translateY(var(--stagger-distance, 1.5rem));
+  transition: opacity var(--stagger-duration, 0.75s) linear,
+    transform var(--stagger-duration, 0.75s) cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: calc(var(--i, 0) * var(--stagger-delay, 0.1s));
+}
+
+.isVisible > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.item {
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
+.imageWrap {
+  position: relative;
+}
+
+.image {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 0.75rem;
+}
+
+/* Numeração em vidro fosco sobre a foto: #0003 + blur(16px). Fundo sólido
+   brigaria com a imagem; o blur deixa a foto respirar por baixo. */
+.number {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.875rem;
+  height: 1.875rem;
+  border-radius: 0.375rem;
+  background-color: #0003;
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  color: #fff;
+  font-size: 0.875rem;
+  line-height: 1;
+}
+
+/* padding-right 1.5rem e ZERO à esquerda: o texto alinha com a borda da
+   foto e respira só do lado de dentro da grade. */
+.content {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 1.5rem 1.5rem 1.5rem 0;
+}
+
+/* .heading-style-h4 — 1.5rem, não 1.125. */
+.h4 {
+  font-size: 1.5rem;
+  line-height: 1.25;
+  letter-spacing: -0.025rem;
+}
+
+.secondary {
+  font-size: 0.9375rem;
+  line-height: 1.45;
+  color: rgba(24, 24, 27, 0.6);
+}
+
+/* `display: none` no original — o botão só aparece numa variante que esta
+   instância não usa. Mantido no markup pela fidelidade estrutural. */
+.buttonWrap {
+  display: none;
+  flex-flow: column;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.875rem 1.5rem;
+  border-radius: 624.9375rem;
+  background-color: #000;
+  color: #fff;
+  font-size: 0.9375rem;
+  transition: background-color 0.25s var(--ease-btn),
+    transform 0.25s var(--ease-btn);
+}
+
+.btn:hover {
+  background-color: #27272a;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+@media (max-width: 991px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .pagePadding {
+    padding-inline: 1.25rem;
+    padding-block: 4rem;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .grid > * {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

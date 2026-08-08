@@ -13,6 +13,13 @@ description: >-
 
 ## Workflow
 
+0. **Ler antes de começar**
+   - [`recipes/INDEX.md`](../../recipes/INDEX.md) — a seção que você vai clonar
+     provavelmente já existe como recipe, com outros números
+   - [`section-anatomy`](../section-anatomy/SKILL.md) — o protocolo de
+     decomposição, obrigatório para qualquer seção com scroll/sticky/animação
+   - O `ANATOMY.md` do projeto do portfólio mais parecido com a referência
+
 1. **Collect references**
    - Structure/sizing: `.mhtml` (layout, spacing, breakpoints)
    - Animations: `.htm` with live scripts (scroll, GSAP, transitions)
@@ -38,6 +45,14 @@ description: >-
    - `npm run build` must pass
    - Check horizontal overflow (`overflow-x: clip` on `html`, `body`, page wrapper)
    - Compare against reference at 375px, 1024px, 1440px
+
+6. **Alimentar a biblioteca** (não pule — é o que faz o próximo clone ser melhor)
+   - Padrão novo que ainda não está em `recipes/`? Crie a pasta, copie o código
+     real e escreva o `RECIPE.md` (Efeito · Fonte · Anatomia · Por que funciona ·
+     Calibragem · Armadilhas · Reduced motion)
+   - Adicione a linha em `recipes/INDEX.md`
+   - Escreva o `ANATOMY.md` do projeto — seção por seção, com camadas, driver,
+     pista, estados e o porquê dos números
 
 ## Project conventions
 

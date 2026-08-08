@@ -1,0 +1,81 @@
+.card {
+  background-color: var(--color-paper-white);
+  border-radius: var(--radius-elevated);
+  box-shadow: var(--shadow-artifact);
+  padding: var(--spacing-16) var(--spacing-20) var(--spacing-12);
+  width: 100%;
+}
+
+.head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--spacing-12);
+  margin-bottom: var(--spacing-12);
+}
+
+.title {
+  font-size: var(--text-meta);
+  font-weight: var(--weight-480);
+  color: var(--color-ink-black);
+}
+
+.period {
+  font-size: var(--text-micro);
+  color: var(--color-smoke-gray);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  text-align: left;
+  font-weight: var(--weight-regular);
+  padding-block: 7px;
+}
+
+.table thead th {
+  font-size: var(--text-micro);
+  color: var(--color-smoke-gray);
+  border-bottom: 1px solid var(--color-trans-5);
+  padding-bottom: var(--spacing-8);
+}
+
+.table tbody tr + tr .region,
+.table tbody tr + tr .numeric {
+  border-top: 1px solid var(--color-trans-5);
+}
+
+.region {
+  font-size: var(--text-micro);
+  color: var(--color-ink-black);
+  white-space: nowrap;
+}
+
+.numeric {
+  text-align: right;
+  position: relative;
+}
+
+.value {
+  font-size: var(--text-micro);
+  color: var(--color-ink-black);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Barra de proporção ancorada à direita, sob o número. */
+.bar {
+  position: absolute;
+  right: 0;
+  bottom: 3px;
+  display: block;
+  width: 56px;
+  height: 2px;
+  border-radius: 1px;
+  background-color: var(--color-sienna-brown);
+  opacity: 0.28;
+  transform-origin: right center;
+}

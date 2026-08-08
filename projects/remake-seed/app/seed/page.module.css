@@ -1,0 +1,34 @@
+.page {
+  position: relative;
+  max-width: 100%;
+  /* SEM overflow-x aqui: qualquer valor diferente de `visible` num ancestral
+     quebra o `position: sticky` dos descendentes — o header parava de grudar.
+     O corte horizontal já está no html/body do globals.css. */
+  /* SEM fundo: a camada fixa do rodapé usa z-index -1. */
+}
+
+/* A barra de anúncio é FULL-BLEED (0,0,1425,40 = largura total, sem inset).
+   Só o nav recebe o inset de 16px. Eu havia aplicado o padding no wrapper
+   dos dois, o que encolhia a barra e deixava margem nas laterais. */
+.shell {
+  padding-inline: 0;
+}
+
+/* Inset assimétrico, medido: a faixa vai de x=16 a 1432 numa viewport de
+   1440 → 16px à esquerda, 8px à direita. */
+.navInset {
+  padding-left: var(--page-inset);
+  padding-right: 8px;
+}
+
+/* O header GRUDA e acompanha a página inteira. Medido no original:
+   position sticky, top 8px, z-index 10.
+
+   Em repouso ele fica em y=40 (abaixo da barra de anúncio); ao rolar, cola
+   em y=8 e segue até o fim. O `.shell` NÃO pode ter overflow nem altura
+   fixa, senão o sticky para de funcionar ao sair do pai. */
+.navInset {
+  position: sticky;
+  top: 8px;
+  z-index: 10;
+}

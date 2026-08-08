@@ -1,0 +1,120 @@
+.hero {
+  position: relative;
+  grid-column: span 12;
+  padding-bottom: 1.667vw;
+  border-bottom: 0.139vw solid #006eff;
+  z-index: 10;
+}
+
+.wordmarkLink {
+  display: block;
+  width: 100%;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.wordmarkLink:hover {
+  opacity: 0.72;
+}
+
+.wordmark {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.wordmarkMobile {
+  display: none;
+  width: 100%;
+  height: auto;
+}
+
+.date,
+.time {
+  text-align: center;
+  position: absolute;
+  bottom: 1.667vw;
+}
+
+.date {
+  left: 2.431vw;
+}
+
+.time {
+  right: 2.431vw;
+}
+
+.date p:first-child,
+.time p:first-child {
+  font-size: 1.25vw;
+  margin-bottom: 1.422vw;
+  text-transform: uppercase;
+  line-height: 95%;
+}
+
+.date p:last-child,
+.time p:last-child {
+  font-size: 5.369vw;
+  font-family: var(--font-editorial-new);
+  line-height: 95%;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+.subtitle {
+  grid-column: span 12;
+  padding-top: 1.875vw;
+  z-index: 10;
+}
+
+.subtitle h1 {
+  font-size: 2.639vw;
+  line-height: 100%;
+  font-weight: 300;
+  text-align: center;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 800px) {
+  .hero {
+    padding-bottom: 25vw;
+    border-bottom: 0.533vw solid #006eff;
+  }
+
+  .wordmark {
+    display: none;
+  }
+
+  .wordmarkMobile {
+    display: block;
+  }
+
+  .date,
+  .time {
+    bottom: 3vw;
+  }
+
+  .date {
+    left: 8vw;
+  }
+
+  .time {
+    right: 8vw;
+  }
+
+  .date p:first-child,
+  .time p:first-child {
+    font-size: 4vw;
+    margin-bottom: 2vw;
+  }
+
+  .date p:last-child,
+  .time p:last-child {
+    font-size: 9.333vw;
+  }
+
+  .subtitle h1 {
+    font-size: 5.6vw;
+  }
+}

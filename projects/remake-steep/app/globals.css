@@ -1,0 +1,327 @@
+/* ---------------------------------------------------------------------------
+   Fontes — Signifier + Söhne, os arquivos reais do original.
+
+   Ambas são comerciais (Klim Type Foundry). Estão aqui como peça de estudo de
+   portfólio, mesma prática dos outros projetos do repositório (Summer Drive
+   self-hospeda Founders Grotesk e Editorial New). Não redistribua.
+--------------------------------------------------------------------------- */
+@font-face {
+  font-family: "Signifier";
+  src: url("/fonts/signifier-regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Signifier";
+  src: url("/fonts/signifier-regular-italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Variável 100–900: é o que faz os meios-pesos 430/450/480 existirem de
+   verdade em vez de arredondarem para 400/500. */
+@font-face {
+  font-family: "Sohne";
+  src: url("/fonts/sohne-vf.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Sohne";
+  src: url("/fonts/sohne-vf-kursiv.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Sohne";
+  src: url("/fonts/soehne-buch.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Sohne";
+  src: url("/fonts/soehne-kraftig.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* --- Cores: núcleo ------------------------------------------------------ */
+  --color-ink-black: #17191c;      /* texto primário, fundo do botão cheio    */
+  --color-paper-white: #ffffff;    /* canvas                                   */
+  --color-mist-gray: #f2f2f3;      /* superfície de card                       */
+  --color-fog-white: #fafafb;      /* faixa de seção alternada                 */
+  --color-light-gray: #f7f7f8;     /* superfície nested                        */
+  --color-slate-gray: #777b86;     /* links, texto auxiliar                    */
+  --color-ash-gray: #979799;       /* tags de categoria                        */
+  --color-smoke-gray: #a3a6af;     /* placeholder, texto recuado               */
+  --color-disabled: #bebebe;
+  --color-dark-gray: #4c4c4c;
+
+  /* --- Cores: acento -------------------------------------------------------
+     O par peach/sienna é o destaque editorial da página (card de história do
+     cliente). Os pares azul e verde existem SÓ no baralho da seção "A new
+     kind of analytics platform", onde a cor migra com o ponteiro.
+
+     Atenção: estes valores são específicos da seção e NÃO são os tokens
+     semânticos globais (--color-light-blue é #e9f1fe, outro tom).           */
+  --color-blush-peach: #fbe1d1;
+  --color-sienna-brown: #5d2a1a;
+  --color-card-blue: #d3e3fc;
+  --color-card-blue-ink: #194168;
+  --color-card-green: #d8efdf;
+  --color-card-green-ink: #1f4720;
+
+  /* --- Cores: semânticas (só em artefatos de produto: tags, gráficos) ----- */
+  --color-primary-blue: #2f6fe5;
+  --color-light-blue: #e9f1fe;
+  --color-dark-blue: #174d80;
+  --color-primary-green: #17975e;
+  --color-light-green: #e6f4eb;
+  --color-dark-green: #2b552c;
+  --color-primary-purple: #7a2bec;
+  --color-light-purple: #f2edfc;
+  --color-primary-red: #e53b79;
+  --color-light-red: #f9eeeb;
+  --color-light-yellow: #f8f5e2;
+  --color-dark-yellow: #6f4e17;
+
+  /* --- Transparências ------------------------------------------------------
+     Baseadas em #0e172b (azul-quase-preto), não em preto puro. É o que dá o
+     tom levemente frio às bordas hairline em vez do cinza morto do #000.     */
+  --color-trans-5: rgba(4, 23, 43, 0.05);
+  --color-trans-10: rgba(10, 23, 43, 0.10);
+  --color-trans-15: rgba(14, 23, 43, 0.15);
+  --color-trans-20: rgba(14, 23, 43, 0.20);
+  --color-trans-25: rgba(14, 23, 43, 0.25);
+  --color-trans-50: rgba(14, 23, 42, 0.50);
+  --color-hairline: #ececec;
+
+  /* --- Fontes ------------------------------------------------------------- */
+  --font-serif: "Signifier", ui-serif, Georgia, Cambria, "Times New Roman",
+    Times, serif;
+  --font-sans: "Sohne", ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  /* Meios-pesos: a hierarquia desta página é mais fina que 400/500/700 */
+  --weight-regular: 400;
+  --weight-book: 430;
+  --weight-450: 450;
+  --weight-480: 480;
+  --weight-medium: 500;
+
+  /* --- Escala tipográfica -------------------------------------------------
+     Os títulos são fluidos entre os degraus medidos no original:
+       hero    50 → 60 → 70 → 90px
+       seção   40 → 48 → 60 → 72px
+       quote   36 → 44px
+       cta     36 → 42 → 50px                                                */
+  --text-display: clamp(3.125rem, 2.1rem + 4.4vw, 5.625rem);  /* 50 → 90px */
+  --text-heading-lg: clamp(2.5rem, 1.9rem + 2.8vw, 4.5rem);   /* 40 → 72px */
+  --text-heading: clamp(2.25rem, 1.9rem + 1.6vw, 2.75rem);    /* 36 → 44px */
+  --text-heading-sm: 1.625rem;                                 /* 26px      */
+  --text-subheading: 1.375rem;                                 /* 22px      */
+  --text-body-lg: 1.25rem;                                     /* 20px      */
+  --text-body: 1.0625rem;                                      /* 17px      */
+  --text-ui: 1rem;                                             /* 16px      */
+  --text-caption: 0.9375rem;                                   /* 15px      */
+  --text-meta: 0.875rem;                                       /* 14px      */
+  --text-micro: 0.75rem;                                       /* 12px      */
+
+  /* Tracking — mais apertado quanto maior o corpo. É a assinatura. */
+  --tracking-display: -0.025em;
+  --tracking-heading: -0.015em;
+  --tracking-sm: -0.009em;
+
+  /* --- Espaçamento (base 4px) --------------------------------------------- */
+  --spacing-4: 4px;
+  --spacing-8: 8px;
+  --spacing-12: 12px;
+  --spacing-16: 16px;
+  --spacing-20: 20px;
+  --spacing-24: 24px;
+  --spacing-28: 28px;
+  --spacing-32: 32px;
+  --spacing-40: 40px;
+  --spacing-64: 64px;
+  --spacing-80: 80px;
+  --spacing-96: 96px;
+  --spacing-128: 128px;
+  --spacing-160: 160px;
+
+  /* --- Layout -------------------------------------------------------------
+     O nav usa max-w-[1200px]; as seções de conteúdo usam 1360px.            */
+  --page-max-width: 1360px;
+  --nav-max-width: 1200px;
+  --content-max-width: 1200px;
+  --page-padding: 20px;
+  --section-gap: clamp(80px, 9vw, 128px);
+
+  /* --- Raios --------------------------------------------------------------
+     Só dois raios estruturais: 9999px em botões, 24px em cards.             */
+  --radius-image: 12px;
+  --radius-input: 16px;
+  --radius-small-card: 16px;
+  --radius-elevated: 20px;
+  --radius-card: 24px;
+  --radius-pill: 9999px;
+
+  /* --- Elevação -----------------------------------------------------------
+     Só artefatos de produto flutuantes ganham sombra. Cards de conteúdo não. */
+  --shadow-artifact: 0 0 0 1px rgba(4, 23, 43, 0.05),
+    0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  --shadow-popover: 0 0 0 1px rgba(4, 23, 43, 0.05),
+    0 4px 24px 0 rgba(0, 0, 0, 0.08);
+  --shadow-modal: 0 0 0 1px rgba(4, 23, 43, 0.05),
+    0 8px 40px 0 rgba(0, 0, 0, 0.1);
+
+  /* --- Movimento ----------------------------------------------------------- */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --nav-height: 64px; /* h-16 no original */
+}
+
+/* --------------------------------------------------------------------------
+   Reset
+-------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  /* clip, não hidden — hidden em ancestral mataria qualquer position: sticky */
+  overflow-x: clip;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  overflow-x: clip;
+  background-color: var(--color-paper-white);
+  color: var(--color-ink-black);
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  font-weight: var(--weight-regular);
+  line-height: 1.35;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote {
+  margin: 0;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+img,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   Utilitários compartilhados
+-------------------------------------------------------------------------- */
+.container {
+  width: 100%;
+  max-width: var(--page-max-width);
+  margin-inline: auto;
+  padding-inline: var(--page-padding);
+}
+
+.containerNarrow {
+  width: 100%;
+  max-width: var(--content-max-width);
+  margin-inline: auto;
+  padding-inline: var(--page-padding);
+}
+
+/* Serifada de display. Peso 400 em TODOS os tamanhos — a serifada nunca
+   engrossa, essa contenção é a assinatura do sistema. */
+.display {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: var(--tracking-display);
+  text-wrap: balance;
+}
+
+.sectionHeading {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: var(--text-heading-lg);
+  line-height: 1.1;
+  letter-spacing: var(--tracking-heading);
+  text-wrap: balance;
+}
+
+/* Tag tipográfica — sem fundo, sem borda. Agrupa sem peso visual. */
+.tagLabel {
+  font-size: var(--text-meta);
+  font-weight: var(--weight-regular);
+  color: var(--color-ash-gray);
+}
+
+.muted {
+  color: var(--color-slate-gray);
+}
+
+@media (min-width: 768px) {
+  :root {
+    --page-padding: 32px;
+  }
+}
+
+@media (min-width: 1280px) {
+  :root {
+    --page-padding: 48px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,193 @@
+/* ---------------------------------------------------------------------------
+   Fontes — Seed Sans, os arquivos reais do original (6 variantes subset).
+
+   Comercial/proprietária. Está aqui como peça de estudo de portfólio, mesma
+   prática dos outros projetos do repositório. Não redistribua.
+
+   Detalhe do original: o wordmark NÃO é SVG — é um glyph dentro da própria
+   fonte. O logo do header é texto puro em Seed Sans 20px/300, com o nome
+   acessível num <span> oculto ao lado (o glyph não é legível por leitor de
+   tela). Ver components/atoms/Logo.
+--------------------------------------------------------------------------- */
+@font-face {
+  font-family: "Seed Sans";
+  src: url("/fonts/SeedSans-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Seed Sans";
+  src: url("/fonts/SeedSans-LightItalic.woff2") format("woff2");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Seed Sans";
+  src: url("/fonts/SeedSans-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Seed Sans";
+  src: url("/fonts/SeedSans-RegularItalic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Seed Sans";
+  src: url("/fonts/SeedSans-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Seed Sans";
+  src: url("/fonts/SeedSans-MediumItalic.woff2") format("woff2");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+:root {
+  /* --- Cores (todas medidas no computed style do original) --------------- */
+  --color-ink: #1c3a13;        /* rgb(28,58,19)    texto e fundo do botão   */
+  --color-paper: #fcfcf7;      /* rgb(252,252,247) texto sobre o ink        */
+  --color-lime: #d3fa99;       /* rgb(211,250,153) barra de anúncio         */
+  --color-canvas: #ffffff;
+  --color-deep: #10210b;       /* rgb(16,33,11) fundo do rodapé, mais escuro
+                                  que o ink — amostrado do pixel */
+
+  /* --- Fonte ------------------------------------------------------------- */
+  --font-sans: "Seed Sans", ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  /* Pesos fracionários: 300/350/400/500 no original. O 350 é interpolado —
+     só existe de verdade porque as 6 variantes estão carregadas. É a mesma
+     assinatura de hierarquia fina do Steep (430/450/480). */
+  --weight-light: 300;
+  --weight-350: 350;
+  --weight-regular: 400;
+  --weight-medium: 500;
+
+  /* --- Escala tipográfica (medida) --------------------------------------- */
+  --text-nav: 0.875rem;        /* 14px — links do header e barra           */
+  --text-logo: 1.25rem;        /* 20px — o glyph do wordmark               */
+
+  /* --- Layout ------------------------------------------------------------
+     A faixa do header mede 1416px começando em x=16 → 16px de margem de
+     cada lado, largura total menos 32. Não é container centralizado com
+     max-width; é a viewport com inset de 16px.                            */
+  /* O container do design system deles: 12 colunas de 84.08px + 11 gaps de
+     32px = 1361px. É a MESMA largura do card da ViaCap — token, não
+     coincidência. Com o padding de 32px sobrariam 1376; eles limitam a 1361. */
+  --container: 1361px;
+  --grid-gap: 32px;
+
+  --page-inset: 16px;
+  --nav-height: 56px;
+  --announce-height: 40px;
+
+  /* --- Forma ------------------------------------------------------------- */
+  --radius-pill: 1000px;       /* o valor literal do original, não 9999px  */
+  --radius-sm: 4px;            /* barra de anúncio                          */
+
+  /* --- Movimento --------------------------------------------------------- */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* --------------------------------------------------------------------------
+   Reset
+-------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  overflow-x: clip;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  overflow-x: clip;
+  /* SEM background-color: a camada fixa do rodapé usa z-index -1 e um body
+     opaco a esconderia. Cada seção pinta o próprio fundo. */
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-weight: var(--weight-regular);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote {
+  margin: 0;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+img,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+/* Nome acessível para conteúdo que é visualmente um glyph ou ícone.
+   O original usa exatamente esta classe no logo. */
+.screenreader-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

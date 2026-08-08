@@ -1,0 +1,242 @@
+/* Faixa mist (#F2F2F3) com auras coloridas muito diluídas — azul à esquerda,
+   roxo/rosa à direita. É a única cor da seção; tudo mais é acromático. */
+.section {
+  position: relative;
+  overflow: hidden;
+  padding-block: clamp(64px, 8vw, 120px) clamp(80px, 10vw, 180px);
+  background-color: var(--color-mist-gray);
+}
+
+.aura {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      42% 38% at 8% 62%,
+      rgba(120, 140, 235, 0.16),
+      transparent 70%
+    ),
+    radial-gradient(
+      46% 40% at 96% 30%,
+      rgba(196, 140, 220, 0.18),
+      transparent 70%
+    );
+}
+
+.inner {
+  position: relative;
+  z-index: 1;
+}
+
+/* --- Cabeçalho: coluna única à esquerda ---------------------------------- */
+.head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-16);
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: var(--spacing-16);
+  font-size: var(--text-caption);
+  color: var(--color-ink-black);
+}
+
+.eyebrowArrow {
+  opacity: 0.45;
+}
+
+.title {
+  max-width: 16ch;
+  /* 64px — medido no computed style do original; o token global
+     --text-heading-lg escala até 72px e fica grande demais. */
+  font-size: clamp(2.5rem, 1.6rem + 3vw, 4rem);
+}
+
+.subhead {
+  font-size: var(--text-body-lg);
+  line-height: 1.35;
+  color: var(--color-slate-gray);
+  max-width: 30ch;
+}
+
+.cta {
+  margin-top: var(--spacing-8);
+  height: 44px;
+  padding-inline: var(--spacing-20);
+  font-size: var(--text-ui);
+}
+
+.ctaArrow {
+  display: inline-block;
+  margin-left: 2px;
+  color: var(--color-slate-gray);
+}
+
+/* --- Palco: screenshot + balões ------------------------------------------ */
+.stage {
+  position: relative;
+  margin-top: clamp(48px, 6vw, 88px);
+}
+
+.shot {
+  width: 100%;
+  max-width: 790px;
+  margin-inline: auto;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  box-shadow: var(--shadow-artifact);
+}
+
+.shotImg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Balões: no mobile entram no fluxo abaixo do screenshot; em desktop viram
+   absolutos e sangram para fora dele. */
+.bubble {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: var(--spacing-20);
+  max-width: 340px;
+}
+
+/* Pílula de identidade, encostada no topo do card e deslocada 12px à
+   esquerda — é o degrau que faz o conjunto parecer um balão de conversa. */
+.who {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  padding: 6px 14px 6px 6px;
+  border-radius: var(--radius-pill);
+  background-color: var(--color-paper-white);
+  box-shadow: var(--shadow-popover);
+}
+
+.face {
+  width: 26px;
+  height: 26px;
+  border-radius: var(--radius-pill);
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.name {
+  font-size: var(--text-caption);
+  font-weight: var(--weight-medium);
+  color: var(--color-ink-black);
+}
+
+.team {
+  font-size: var(--text-caption);
+  color: var(--color-slate-gray);
+}
+
+.question {
+  margin-top: -6px;
+  padding: var(--spacing-16) var(--spacing-20);
+  border-radius: var(--radius-elevated);
+  background-color: var(--color-paper-white);
+  box-shadow: var(--shadow-popover);
+  font-size: var(--text-ui);
+  line-height: 1.35;
+  color: var(--color-ink-black);
+}
+
+@media (min-width: 1024px) {
+  .bubble {
+    position: absolute;
+    margin-top: 0;
+    z-index: 3;
+  }
+
+  .left1 {
+    left: 0;
+    top: 26%;
+  }
+
+  .left2 {
+    left: 0;
+    top: 66%;
+    max-width: 360px;
+  }
+
+  .right1 {
+    right: 0;
+    top: 46%;
+    max-width: 400px;
+  }
+
+  /* Nos balões da direita a pílula alinha à direita do card. */
+  .right1 {
+    align-items: flex-end;
+  }
+
+  .right1 .who {
+    margin-right: var(--spacing-12);
+  }
+}
+
+/* --- Benefícios ----------------------------------------------------------
+   A imagem fica num contentor claro e o conteúdo SANGRA pela base (sem
+   padding inferior): sugere que a tela continua. O texto vive fora do
+   contentor, sem fundo — só o visual tem superfície. */
+.benefits {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(32px, 4vw, 48px);
+  margin-top: clamp(64px, 8vw, 120px);
+}
+
+.benefit {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-8);
+}
+
+.benefitShot {
+  width: 100%;
+  height: 220px;
+  margin-bottom: var(--spacing-16);
+  border-radius: var(--radius-elevated);
+  overflow: hidden;
+  background-color: var(--color-light-gray);
+}
+
+.benefitShot img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.benefitTitle {
+  font-size: var(--text-ui);
+  font-weight: var(--weight-480);
+  color: var(--color-ink-black);
+}
+
+.benefitText {
+  font-size: var(--text-ui);
+  line-height: 1.45;
+  color: var(--color-slate-gray);
+  max-width: 40ch;
+}
+
+@media (min-width: 768px) {
+  .benefits {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}

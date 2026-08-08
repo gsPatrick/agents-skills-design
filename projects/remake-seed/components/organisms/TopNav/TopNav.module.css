@@ -1,0 +1,108 @@
+/* static: o header rola com a página. Medido no original. */
+.nav {
+  /* relative + z-index: o hero sobe por baixo com margin-top negativo, então
+     o nav precisa vencer na pilha para continuar clicável e visível. */
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  height: var(--nav-height);
+  /* ZERO dos dois lados. O recuo de 32px que põe o logo em x=48 mudou para
+     DENTRO da pílula de vidro (.glass) — é ela que precisa ancorar em x=16.
+     Com o padding aqui, a pílula começava em 48.
+
+     À direita continua zero: no original as actions terminam em 1432,
+     encostadas na borda da faixa. */
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.logoLink {
+  display: inline-flex;
+  align-items: center;
+  /* logo termina em 48+64=112, primeiro link começa em 128 → 16px */
+  margin-right: 16px;
+}
+
+/* 19px de gap entre os itens, medido no original:
+     Shop  termina 183 → Science começa 202
+     Science termina 275 → Learn começa 294
+   Sem o gap o erro acumula item a item (−4, −24, −43). */
+.menu {
+  display: flex;
+  align-items: center;
+  /* 19.5px, não 19: com 19 o Science cai em 201 e o Learn em 293 (−1px
+     cada). O valor real é fracionário — provavelmente 1.21875rem. */
+  gap: 19.5px;
+}
+
+/* padding 7px 10.5px — os 10.5 são literais do original (0.75rem × 0.875) */
+.menuItem {
+  display: inline-block;
+  padding: 7px 10.5px;
+  font-size: var(--text-nav);
+  font-weight: var(--weight-regular);
+  /* line-height 1 é obrigatório: sem ele herda "normal" e a caixa vai a 31px
+     em vez dos 28 medidos (7 + 14 + 7). */
+  line-height: 1;
+  color: var(--color-ink);
+  transition: opacity 0.2s var(--ease-out);
+}
+
+.menuItem:hover {
+  opacity: 0.7;
+}
+
+/* Wrapper medido em 1235,41,197,55: flex com padding 6px e SEM gap — os dois
+   botões se encostam (Sign in termina em 1313, Get Started começa em 1313).
+   O padding de 6px é o que dá a folga entre o botão e a borda da faixa. */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 6px;
+  margin-left: auto;
+}
+
+/* 113px medidos. O texto renderiza 7px mais estreito aqui por diferença de
+   métrica do subset, então fixo a largura em vez de deixar o conteúdo mandar. */
+.actions > :last-child {
+  min-width: 113px;
+}
+
+/* A pílula: 375px a partir de x=16, envolvendo logo + menu. */
+.glass {
+  display: flex;
+  align-items: center;
+  /* 56px de altura, igual à faixa — a pílula é a faixa, não uma tarja fina
+     dentro dela. Sem isso ela encolhe para a altura do texto (28px). */
+  height: var(--nav-height);
+  /* 32px por dentro: o logo cai em x=48 e a pílula ancora em x=16. */
+  padding-left: 32px;
+  /* Mesmo rgba(87,94,85,0.35) do card da ViaCap — token
+     --color-neutral-frosted-glass-35. O blur é 19px aqui contra 37.5px no
+     card: menos difusão porque a pílula é pequena e os links precisam
+     continuar legíveis. */
+  border-radius: var(--radius-pill);
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+/* scrollY > 0 — o texto inverte para paper e o vidro entra. */
+.vidro {
+  padding-right: 24px;
+  background-color: rgba(87, 94, 85, 0.35);
+  -webkit-backdrop-filter: blur(19px);
+  backdrop-filter: blur(19px);
+}
+
+/* Todo o texto dentro da pílula inverte para paper. */
+.vidro .logoLink,
+.vidro .menuItem {
+  color: var(--color-paper);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav {
+    transition: none;
+  }
+}

@@ -1,0 +1,33 @@
+.link {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  font-size: var(--text-ui);
+  font-weight: var(--weight-book);
+  color: var(--color-ink-black);
+  width: fit-content;
+}
+
+.label {
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s var(--ease-out);
+}
+
+.link:hover .label {
+  border-bottom-color: currentColor;
+}
+
+.arrow {
+  display: inline-block;
+  transition: transform 0.25s var(--ease-out);
+}
+
+.link:hover .arrow {
+  transform: translateX(3px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arrow {
+    transition: none;
+  }
+}

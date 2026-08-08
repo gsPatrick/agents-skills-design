@@ -1,0 +1,384 @@
+/* Root: reserva o runway (Q + 1.2Q). Altura vem do JS em desktop.
+   bg-linear-to-b from-[#F7F7F8] to-white do original. */
+.root {
+  position: relative;
+  background: linear-gradient(to bottom, #f7f7f8, #ffffff);
+}
+
+/* sticky dentro de um pai de 2.2Q, com altura Q → gruda de 0 até 1.2Q.
+   É exatamente o `pin: true, end: "+=1.2*Q"` do GSAP. */
+.pin {
+  position: relative;
+  overflow: hidden;
+}
+
+/* --- Fundo --------------------------------------------------------------- */
+.bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  max-height: 1440px;
+  will-change: transform;
+}
+
+.bgImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* --- Palco (desktop) -----------------------------------------------------
+   Sem altura própria: os 880px vêm do dashboard, que é o único filho em
+   fluxo. Todo o resto é absolute e se posiciona a partir disso.            */
+.stage {
+  display: none;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  z-index: 5;
+  transform-origin: top center;
+}
+
+/* top-[35%] de 880 = 308px */
+.titleWrap {
+  position: absolute;
+  top: 35%;
+  left: 0;
+  width: 1200px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-20);
+  text-align: center;
+  will-change: transform, opacity;
+}
+
+/* line-height 1.3 (117px em 90px) — medido no computed style do original.
+   A classe `leading-[1.1]` no markup é sobrescrita em runtime. */
+.title {
+  font-size: 90px;
+  line-height: 1.3;
+  letter-spacing: var(--tracking-display);
+  max-width: 1000px;
+}
+
+.title em {
+  font-style: italic;
+}
+
+.subhead {
+  font-size: 18px;
+  line-height: normal;
+  color: var(--color-ink-black);
+  max-width: 630px;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-8);
+  margin-top: var(--spacing-8);
+}
+
+/* --- Dashboard ----------------------------------------------------------- */
+.dashboard {
+  position: relative;
+  width: 1200px;
+  overflow: hidden;
+  border-radius: var(--radius-card);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  will-change: transform, opacity;
+}
+
+.dashboardImg {
+  width: 1200px;
+  height: auto;
+}
+
+/* top-22 left-62 do original = 88px / 248px */
+.contentStart {
+  position: absolute;
+  top: 88px;
+  left: 248px;
+  will-change: opacity;
+}
+
+.content {
+  position: absolute;
+  top: 28px;
+  left: 300px;
+  will-change: transform, opacity;
+}
+
+/* --- Peças flutuantes ----------------------------------------------------
+   No original são `absolute` sem top/left, ou seja usam a posição estática:
+   logo abaixo do dashboard (0, 880). Fixar o valor aqui é equivalente e
+   determinístico — sem ele toda a timeline fica deslocada.
+
+   O ::before carrega a sombra com opacidade em variável: é assim que os
+   blocos "se fundem" ao dashboard (--shadow-opacity de 1 → 0 na chegada). */
+.block,
+.aiWrap,
+.cursor,
+.logos {
+  position: absolute;
+  top: 880px;
+  left: 0;
+  will-change: transform;
+}
+
+.block::before,
+.aiWrap::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius);
+  box-shadow: var(--block-shadow);
+  opacity: var(--shadow-opacity, 1);
+}
+
+.blockImg {
+  position: relative;
+  display: block;
+  border-radius: 12px;
+}
+
+.cursor {
+  z-index: 20;
+}
+
+/* --- Campo de IA --------------------------------------------------------- */
+.aiWrap {
+  width: 400px;
+  z-index: 15;
+}
+
+.aiBox {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100px;
+  overflow: hidden;
+  background-color: var(--color-paper-white);
+  border-radius: var(--radius-elevated);
+  padding: var(--spacing-16) var(--spacing-12) var(--spacing-12)
+    var(--spacing-20);
+}
+
+.aiTextRow {
+  position: relative;
+}
+
+.aiPlaceholder,
+.aiTyped {
+  font-size: var(--text-caption);
+  font-weight: var(--weight-book);
+  line-height: normal;
+}
+
+.aiPlaceholder {
+  color: var(--color-smoke-gray);
+}
+
+/* A largura anima de 0 a 100% — é o efeito de digitação. */
+.aiTyped {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: block;
+  width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  color: var(--color-ink-black);
+}
+
+.aiIcons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.aiTools {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  color: var(--color-ink-black);
+}
+
+.aiSend {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-pill);
+  background-color: var(--color-ink-black);
+  color: var(--color-paper-white);
+}
+
+/* --- Faixa de logos ------------------------------------------------------ */
+.logos {
+  left: -5%;
+  width: 110%;
+  z-index: 40;
+}
+
+/* --- Composição estática < 1024px ---------------------------------------- */
+.mobileHero {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  padding-top: 22%;
+  background-color: var(--color-paper-white);
+}
+
+.mobileBg {
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 70%;
+}
+
+.mobileBgImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+
+/* Véu branco no rodapé da imagem — o h-32 bg-linear-to-t do original. */
+.mobileBg::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 128px;
+  background: linear-gradient(to top, #fff, transparent);
+}
+
+.mobileInner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-20);
+  width: 100%;
+  text-align: center;
+  padding-top: var(--nav-height);
+}
+
+.mobileTitle {
+  font-size: clamp(2.25rem, 1.2rem + 4.4vw, 4.375rem); /* 36 → 70px */
+  line-height: 1.1;
+  letter-spacing: var(--tracking-display);
+  padding-inline: var(--spacing-20);
+}
+
+.mobileTitle em {
+  font-style: italic;
+}
+
+.mobileSubhead {
+  font-size: var(--text-ui);
+  line-height: normal;
+  color: var(--color-ink-black);
+  padding-inline: 40px;
+}
+
+.mobileShots {
+  position: relative;
+  width: 100%;
+  margin-top: var(--spacing-40);
+  overflow-x: clip;
+}
+
+.mobileMedium {
+  width: 160%;
+  max-width: none;
+  height: auto;
+  margin-left: 10%;
+  filter: drop-shadow(0 20px 13px rgba(0, 0, 0, 0.08));
+}
+
+.mobilePhone {
+  position: absolute;
+  top: 23%;
+  left: 6%;
+  width: 46%;
+  height: auto;
+  filter: drop-shadow(0 25px 25px rgba(0, 0, 0, 0.15));
+}
+
+@media (min-width: 640px) {
+  .mobileHero {
+    padding-top: 15%;
+  }
+
+  .mobileBg {
+    height: 100%;
+  }
+
+  .mobileSubhead {
+    font-size: var(--text-body-lg);
+  }
+
+  .mobileShots {
+    width: 96%;
+    margin-inline: auto;
+    padding: var(--spacing-80);
+    overflow: hidden;
+  }
+
+  .mobileMedium {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .mobilePhone {
+    top: 36%;
+    left: 16%;
+    width: 22%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .pin {
+    position: sticky;
+    top: 0;
+  }
+
+  .stage {
+    display: block;
+  }
+
+  .mobileHero {
+    display: none;
+  }
+}
+
+/* Sem animação: cai na composição estática, que já é legível parada. */
+@media (prefers-reduced-motion: reduce) {
+  .pin {
+    position: relative;
+    height: auto !important;
+  }
+
+  .stage {
+    display: none;
+  }
+
+  .mobileHero {
+    display: flex;
+  }
+
+  .root {
+    height: auto !important;
+  }
+}

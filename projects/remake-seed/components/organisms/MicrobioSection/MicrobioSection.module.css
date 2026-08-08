@@ -1,0 +1,201 @@
+/* 760px de altura, padding 0 32px (sem padding vertical — o respiro vem do
+   posicionamento interno). */
+.section {
+  padding: 0 32px;
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+}
+
+.inner {
+  position: relative;
+  display: grid;
+  grid-template-columns: 666px 710px;
+  gap: 0;
+  min-height: 760px;
+}
+
+.copy {
+  position: relative;
+}
+
+/* 20px, no topo em y=55 */
+.eyebrow {
+  position: absolute;
+  top: 55px;
+  left: 0;
+  /* 117px medidos; o subset renderiza 110. */
+  min-width: 117px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 20px;
+  font-weight: var(--weight-light);
+  line-height: 24px;
+  color: var(--color-ink);
+}
+
+/* Os colchetes 【】 não existem no subset da Seed Sans e saem como caixa
+   vazia. Uso uma fonte de sistema com cobertura CJK só para eles. */
+.mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 1px;
+  font-family: "Hiragino Sans", "Noto Sans CJK JP", system-ui, sans-serif;
+  font-size: 18px;
+}
+
+/* 48px/350 lh 52.8 (1.1) ls −0.72px — mesma escala da declaração verde. */
+.title {
+  position: absolute;
+  top: 220px;
+  left: 0;
+  width: 555px;
+  font-size: 48px;
+  font-weight: var(--weight-350);
+  line-height: 1.1;
+  letter-spacing: -0.72px;
+}
+
+.text {
+  position: absolute;
+  top: 305px;
+  left: 0;
+  width: 555px;
+  font-size: 16px;
+  font-weight: var(--weight-350);
+  line-height: 1.3;
+  letter-spacing: -0.16px;
+}
+
+/* 159×48 com o ícone circular colado à direita do rótulo. */
+.cta {
+  position: absolute;
+  top: 400px;
+  left: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  height: 48px;
+  /* 159px medidos; o subset renderiza 142. */
+  min-width: 159px;
+  justify-content: space-between;
+  padding: 0 8px 0 24px;
+  border-radius: var(--radius-pill);
+  background-color: var(--color-ink);
+  color: var(--color-paper);
+  font-size: 16px;
+  font-weight: var(--weight-350);
+  letter-spacing: -0.04px;
+  transition: opacity 0.2s var(--ease-out);
+}
+
+.cta:hover {
+  opacity: 0.9;
+}
+
+/* Círculo mais claro que o botão, com o triângulo de play. */
+.play {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: rgba(252, 252, 247, 0.16);
+  color: var(--color-paper);
+}
+
+/* Rodapé da coluna: "SCIENCE / Microbiome 101" */
+.footnote {
+  position: absolute;
+  top: 692px;
+  left: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Tracking POSITIVO (+0.24px) — único texto da página com espacejamento
+   aberto. É tratado como rótulo de sistema, não como texto de leitura. */
+.footLabel {
+  font-size: 16px;
+  font-weight: var(--weight-regular);
+  line-height: 24px;
+  letter-spacing: 0.24px;
+  color: #000;
+}
+
+.footSlash {
+  font-size: 16px;
+  color: #000;
+  opacity: 0.5;
+}
+
+.footTitle {
+  font-size: 16px;
+  font-weight: var(--weight-medium);
+  line-height: 24px;
+  letter-spacing: -0.12px;
+  color: #000;
+}
+
+/* 710×710, radius 32px, fundo #EEEEE9 (aparece nas bordas do vídeo). */
+.figure {
+  position: absolute;
+  top: 25px;
+  right: 0;
+  width: 710px;
+  height: 710px;
+  border-radius: 32px;
+  overflow: hidden;
+  background-color: #eeeee9;
+}
+
+.figureImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 1023px) {
+  .section {
+    padding: 48px 24px;
+  }
+
+  .inner {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    min-height: 0;
+  }
+
+  .eyebrow,
+  .title,
+  .text,
+  .cta,
+  .footnote,
+  .figure {
+    position: static;
+    top: auto;
+    left: auto;
+    right: auto;
+    width: auto;
+  }
+
+  .copy {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .title {
+    font-size: clamp(2rem, 1.5rem + 2.4vw, 3rem);
+  }
+
+  .figure {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+  }
+}

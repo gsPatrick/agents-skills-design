@@ -1,0 +1,72 @@
+/* Geometria exata do original: h-8 (32px), px-3 (12px), text-[15px],
+   rounded-full. NENHUMA variante tem borda — a hierarquia vem só do
+   preenchimento. Um contorno aqui já quebra o sistema. */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-8);
+  height: 32px;
+  padding-inline: var(--spacing-12);
+  border-radius: var(--radius-pill);
+  border: none;
+  font-size: var(--text-caption);
+  font-weight: var(--weight-book);
+  line-height: 1;
+  white-space: nowrap;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
+}
+
+/* Compensa a métrica da Söhne — o original usa pb-0.5 no span interno. */
+.pill > span {
+  padding-bottom: 2px;
+}
+
+/* Preto sólido. A ação primária. */
+.filled {
+  background-color: var(--color-ink-black);
+  color: var(--color-paper-white);
+}
+
+.filled:hover {
+  opacity: 0.9;
+}
+
+.filled:active {
+  opacity: 0.8;
+}
+
+/* Preenchimento translúcido — a ação secundária de verdade do sistema. */
+.soft {
+  background-color: var(--color-trans-5);
+  color: var(--color-ink-black);
+}
+
+.soft:hover {
+  background-color: var(--color-trans-10);
+}
+
+.soft:active {
+  background-color: var(--color-trans-15);
+}
+
+/* Sem fundo em repouso; ganha um ao passar o mouse. É o "Book a demo". */
+.ghost {
+  background-color: transparent;
+  color: var(--color-ink-black);
+}
+
+.ghost:hover {
+  background-color: var(--color-trans-5);
+}
+
+.ghost:active {
+  background-color: var(--color-trans-15);
+}
+
+/* Variante grande — usada no hero e na seção de CTA (h-11, text-base). */
+.regular {
+  height: 44px;
+  padding-inline: var(--spacing-20);
+  font-size: var(--text-ui);
+}

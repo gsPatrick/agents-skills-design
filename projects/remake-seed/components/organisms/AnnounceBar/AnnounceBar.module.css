@@ -1,0 +1,31 @@
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: var(--announce-height);
+  padding: 8px 56px;
+  /* sem border-radius: a barra é full-bleed, encosta nas duas bordas */
+  background-color: var(--color-lime);
+  color: var(--color-ink);
+  font-size: var(--text-nav);
+  font-weight: var(--weight-350);
+  letter-spacing: -0.14px;
+  line-height: 1;
+}
+
+.arrow {
+  display: inline-flex;
+  align-items: center;
+  transition: transform 0.25s var(--ease-out);
+}
+
+.bar:hover .arrow {
+  transform: translateX(3px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arrow {
+    transition: none;
+  }
+}

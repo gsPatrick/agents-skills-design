@@ -1,0 +1,221 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-32);
+  align-items: stretch;
+}
+
+/* Coluna de abas: 282px fixos (lg:w-[282px] shrink-0), margem 40px (mr-10). */
+.list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  flex-shrink: 0;
+}
+
+.trigger {
+  position: relative;
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding-block: var(--spacing-20);
+  transition: opacity 0.3s var(--ease-out);
+}
+
+.triggerBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-8);
+}
+
+.triggerTitle {
+  font-size: var(--text-ui);
+  font-weight: var(--weight-book);
+  color: var(--color-ink-black);
+  transition: color 0.3s var(--ease-out);
+}
+
+.trigger:not(.active) .triggerTitle {
+  color: var(--color-slate-gray);
+}
+
+.trigger:hover .triggerTitle {
+  color: var(--color-ink-black);
+}
+
+/* A descrição existe SÓ na aba ativa. Nas demais o bloco colapsa a zero —
+   é o que mantém a lista compacta e deixa a aba ativa respirar. */
+.triggerText {
+  display: block;
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  font-size: var(--text-caption);
+  line-height: 1.45;
+  color: var(--color-slate-gray);
+  transition: max-height 0.4s var(--ease-out), opacity 0.3s var(--ease-out),
+    margin 0.4s var(--ease-out);
+}
+
+.active .triggerText {
+  max-height: 140px;
+  opacity: 1;
+  margin-top: 2px;
+}
+
+/* --- Trilho de progresso -------------------------------------------------
+   HORIZONTAL, na base de cada aba: track de largura total (o separador
+   entre abas) + fill escuro que cresce da esquerda. Na aba ativa o fill é
+   o relógio do avanço automático.                                          */
+.railTrack {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background-color: var(--color-trans-10);
+}
+
+.railFill {
+  position: absolute;
+  left: 0;
+  top: -0.5px;
+  width: 100%;
+  height: 2px;
+  border-radius: 1px;
+  background-color: var(--color-ink-black);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+/* O nome do @keyframes é escopado (hasheado) pelo CSS Module e NÃO pode ser
+   referenciado por style inline — `animation: progressFill 15s` no JS aponta
+   para um nome inexistente e a barra fica parada. O nome fica aqui; o JS
+   passa só a duração e o play-state. */
+.active .railFill {
+  animation-name: progressFill;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+/* scaleX, não width: composto na GPU e sem depender de largura resolvida. */
+@keyframes progressFill {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* --- Painel -------------------------------------------------------------- */
+.panels {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  background-color: var(--color-paper-white);
+  box-shadow: var(--shadow-artifact);
+}
+
+.panel {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.35s var(--ease-out);
+}
+
+/* `hidden` é sobrescrito porque o elemento precisa ficar montado para animar. */
+.panel[hidden] {
+  display: block;
+  pointer-events: none;
+}
+
+.panelActive {
+  opacity: 1;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+@media (min-width: 1024px) {
+  .wrap {
+    flex-direction: row;
+    align-items: center;
+    gap: 0;
+  }
+
+  .list {
+    width: 282px;
+    margin-right: var(--spacing-40);
+  }
+
+  .panels {
+    flex: 1;
+    min-width: 0;
+    aspect-ratio: 16 / 11;
+  }
+}
+
+@media (min-width: 1536px) {
+  .list {
+    margin-right: var(--spacing-64);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trigger,
+  .triggerText,
+  .panel {
+    transition: none;
+  }
+
+  /* Sem avanço automático (o JS já desliga o timer): o trilho da aba ativa
+     fica cheio, indicando a seleção sem animar. */
+  .railFill {
+    animation: none !important;
+  }
+
+  .active .railFill {
+    transform: scaleX(1);
+  }
+}
+
+/* --- Modo escuro ---------------------------------------------------------
+   Usado na faixa #121212. Inverte tinta e trilhos; o painel perde a sombra
+   (elevação branca sobre preto não lê) e ganha uma borda hairline clara. */
+.dark .triggerTitle {
+  color: var(--color-paper-white);
+}
+
+.dark .trigger:not(.active) .triggerTitle {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.dark .trigger:hover .triggerTitle {
+  color: var(--color-paper-white);
+}
+
+.dark .triggerText {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.dark .railTrack {
+  background-color: rgba(255, 255, 255, 0.14);
+}
+
+.dark .railFill {
+  background-color: var(--color-paper-white);
+}
+
+.dark .panels {
+  background-color: rgba(255, 255, 255, 0.03);
+  box-shadow: none;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}

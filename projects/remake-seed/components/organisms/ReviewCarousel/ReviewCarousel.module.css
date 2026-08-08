@@ -1,0 +1,264 @@
+/* padding-top 165 (o título começa em y=165), bottom 133. Zero horizontal —
+   o carrossel sangra para as bordas. */
+.section {
+  padding: 165px 0 133px;
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  overflow: hidden;
+}
+
+/* Cabeçalho CENTRALIZADO — diferente das outras seções, que alinham à
+   esquerda. */
+.head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.title {
+  width: 700px;
+  max-width: 100%;
+  font-size: 48px;
+  font-weight: var(--weight-350);
+  line-height: 1.1;
+  letter-spacing: -0.72px;
+}
+
+.subhead {
+  margin-top: 24px;
+  max-width: 409px;
+  font-size: 16px;
+  font-weight: var(--weight-350);
+  line-height: 1.3;
+  letter-spacing: -0.16px;
+}
+
+/* Trilho com snap. O primeiro slide começa em x=263. */
+.track {
+  display: flex;
+  align-items: center;
+  gap: 75px;
+  margin-top: 44px;
+  padding-inline: 263px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.track::-webkit-scrollbar {
+  display: none;
+}
+
+/* O ativo é maior (913×514) e sobe 13px; o inativo mede 868×488. */
+.slide {
+  position: relative;
+  flex: 0 0 auto;
+  width: 868px;
+  height: 488px;
+  border-radius: 16px;
+  overflow: hidden;
+  background-color: #000;
+  scroll-snap-align: center;
+  transition: width 0.35s var(--ease-out), height 0.35s var(--ease-out);
+}
+
+.ativo {
+  width: 913px;
+  height: 514px;
+}
+
+.video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.fullscreen {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  color: var(--color-paper);
+  opacity: 0.85;
+  transition: opacity 0.2s;
+}
+
+.fullscreen:hover {
+  opacity: 1;
+}
+
+/* Botão de play central — o estado de repouso do vídeo. */
+.play {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-paper);
+  filter: drop-shadow(0 0 2px rgb(0 0 0 / 0.25))
+    drop-shadow(0 0 6px rgb(0 0 0 / 0.25));
+  transition: transform 0.3s var(--ease-out);
+}
+
+.play:hover {
+  transform: scale(1.06);
+}
+
+.defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+/* --- Barra de controles ---------------------------------------------------
+   O filtro gooey faz as duas cápsulas derreterem uma na outra quando se
+   aproximam. Sem ele são duas formas soltas com um vão visível entre elas. */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin-top: 40px;
+  filter: url(#gooey);
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  padding: 6px;
+  border-radius: var(--radius-pill);
+  background-color: #eeeee9;
+}
+
+.mute {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: var(--color-ink);
+  color: var(--color-paper);
+  transition: opacity 0.2s;
+}
+
+.mute:hover {
+  opacity: 0.9;
+}
+
+.thumbs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px;
+  border-radius: var(--radius-pill);
+  background-color: #eeeee9;
+}
+
+/* A pílula de progresso: o buffer é a trilha, a barra é o preenchimento e o
+   botão fica por cima com o play e o nome. */
+.progressWrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 44px;
+  border-radius: var(--radius-pill);
+  background-color: var(--color-paper);
+  overflow: hidden;
+}
+
+.progressBuffer,
+.progressBar {
+  position: absolute;
+  inset: 0 auto 0 0;
+  height: 100%;
+  pointer-events: none;
+}
+
+.progressBuffer {
+  width: 0;
+  background-color: rgba(28, 58, 19, 0.08);
+}
+
+.progressBar {
+  width: 0;
+  background-color: rgba(28, 58, 19, 0.16);
+  transition: width 0.2s linear;
+}
+
+.progressBtn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 100%;
+  padding: 0 22px 0 18px;
+  font-size: 16px;
+  font-weight: var(--weight-350);
+  letter-spacing: -0.16px;
+  color: var(--color-ink);
+}
+
+.avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 1023px) {
+  .section {
+    padding: 64px 0;
+  }
+
+  .title {
+    width: auto;
+    padding-inline: 24px;
+    font-size: clamp(2rem, 1.5rem + 2.4vw, 3rem);
+  }
+
+  .subhead {
+    padding-inline: 24px;
+  }
+
+  .track {
+    gap: 16px;
+    margin-top: 40px;
+    padding-inline: 24px;
+  }
+
+  .slide,
+  .ativo {
+    width: 88vw;
+    height: auto;
+    aspect-ratio: 16 / 9;
+  }
+
+  .pagination {
+    margin-top: 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slide,
+  .play {
+    transition: none;
+  }
+}

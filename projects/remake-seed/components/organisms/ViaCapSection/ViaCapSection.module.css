@@ -1,0 +1,261 @@
+/* O fundo de bactérias pertence à SEÇÃO, não ao card. É por isso que o card
+   mede 1361 numa seção de 1425 — sobram 32px de cada lado onde a imagem
+   aparece sem o vidro por cima. */
+/* padding-top 140, não 80: o card começa em y=140 dentro da seção
+   (medido). Com 80 toda a coluna direita subia 60px. */
+.section {
+  position: relative;
+  padding: 140px 32px 80px;
+  background-image: url("/media/viacapbg.png");
+  background-size: cover;
+  background-position: center;
+  background-color: #8fa383;
+}
+
+/* rgba(87,94,85,0.35) + blur(37.5px) — é o token
+   --color-neutral-frosted-glass-35 do design system deles. */
+.card {
+  position: relative;
+  display: grid;
+  /* O diagrama começa em x=684 (OUTER). Com card em 32 e padding 80, a
+     coluna esquerda ocupa 540 e o diagrama deve começar 32px depois dela:
+     32+80+540 = 652, +32 de gap = 684. */
+  grid-template-columns: 540px 1fr;
+  gap: 32px;
+  /* Sem margin auto: o card ancora no padding esquerdo (x=32). Centralizado
+     ele caía em 39.5 numa viewport de 1440 e empurrava tudo +8px. */
+  width: 1361px;
+  max-width: 100%;
+  min-height: 560px;
+  padding: 80px;
+  border-radius: 32px;
+  background-color: rgba(87, 94, 85, 0.35);
+  -webkit-backdrop-filter: blur(37.5px);
+  backdrop-filter: blur(37.5px);
+  color: var(--color-paper);
+}
+
+/* --- Coluna esquerda ------------------------------------------------------ */
+.left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: var(--weight-350);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-paper);
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: currentColor;
+}
+
+/* 40px/350 lh 44px (1.1) ls −0.4px — mesma escala do título da
+   HighlightSection. */
+.title {
+  margin-top: 42px;
+  max-width: 540px;
+  font-size: 40px;
+  font-weight: var(--weight-350);
+  line-height: 1.1;
+  letter-spacing: -0.4px;
+}
+
+.title sup {
+  font-size: 0.5em;
+  vertical-align: super;
+  line-height: 0;
+}
+
+/* Caixa da métrica: contorno hairline, sem preenchimento. */
+.metric {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  width: 100%;
+  max-width: 540px;
+  margin-top: 60px;
+  padding: 28px 32px;
+  border: 1px solid rgba(252, 252, 247, 0.35);
+  border-radius: 16px;
+}
+
+.metricLabel {
+  max-width: 200px;
+  font-size: 18px;
+  font-weight: var(--weight-350);
+  line-height: 1.3;
+  letter-spacing: -0.18px;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border: 1px solid rgba(252, 252, 247, 0.45);
+  border-radius: var(--radius-pill);
+  font-size: 13px;
+  line-height: 1;
+}
+
+.pill sup {
+  font-size: 0.62em;
+  vertical-align: super;
+  line-height: 0;
+}
+
+.metricValue {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 34px;
+  font-weight: var(--weight-350);
+  line-height: 1;
+}
+
+/* A seta vive num círculo branco vazado. */
+.arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: 1.4px solid currentColor;
+  border-radius: 50%;
+}
+
+.note {
+  margin-top: 42px;
+  font-size: 12px;
+  font-weight: var(--weight-350);
+  line-height: 1.4;
+  letter-spacing: -0.036px;
+}
+
+/* --- Coluna direita: diagrama --------------------------------------------- */
+.diagram {
+  position: relative;
+}
+
+.capsule {
+  position: absolute;
+  top: 0;
+  left: 155px;
+  width: 400px;
+  height: 400px;
+  object-fit: contain;
+}
+
+.caption {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+}
+
+/* OUTER: à esquerda do vídeo, com o tracejado saindo pela direita. */
+.capOuter {
+  top: 47px;
+  left: 0;
+}
+
+/* INNER: à direita, com o tracejado entrando pela esquerda. */
+.capInner {
+  top: 159px;
+  left: 537px;
+  width: 172px;
+}
+
+.capTitle {
+  font-size: 12px;
+  font-weight: var(--weight-medium);
+  line-height: 1.1;
+  letter-spacing: normal;
+}
+
+.capText {
+  margin-top: 5px;
+  font-size: 12px;
+  font-weight: var(--weight-350);
+  line-height: 1.4;
+  letter-spacing: -0.036px;
+}
+
+/* Linha tracejada que liga a legenda à cápsula. */
+.leader {
+  position: absolute;
+  top: 46px;
+  width: 90px;
+  border-top: 1px dashed rgba(252, 252, 247, 0.6);
+}
+
+.capOuter .leader {
+  left: calc(100% + 12px);
+}
+
+.capInner .leader {
+  right: calc(100% + 12px);
+  top: 8px;
+}
+
+@media (max-width: 1023px) {
+  .section {
+    padding: 40px 16px;
+  }
+
+  .card {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 40px 24px;
+  }
+
+  .title {
+    margin-top: 24px;
+    font-size: clamp(1.75rem, 1.3rem + 2vw, 2.5rem);
+  }
+
+  .metric {
+    margin-top: 32px;
+    padding: 20px;
+  }
+
+  .note {
+    margin-top: 24px;
+  }
+
+  .diagram {
+    min-height: 460px;
+  }
+
+  .capsule {
+    left: 50%;
+    width: 300px;
+    height: 300px;
+    transform: translateX(-50%);
+  }
+
+  .caption {
+    position: static;
+    width: 100%;
+    margin-top: 320px;
+  }
+
+  .capInner {
+    margin-top: 24px;
+  }
+
+  .leader {
+    display: none;
+  }
+}

@@ -45,3 +45,49 @@ description: >-
 - [ ] Font families loaded and applied
 - [ ] Background images/positions match (`bg-position`, `bg-bottom`)
 - [ ] Mobile-first padding scale matches
+
+---
+
+## Vídeo em streaming (Mux, HLS)
+
+Um `<mux-player>` não expõe arquivo baixável, mas o manifest HLS é público.
+O `playback-id` está nos atributos do elemento:
+
+```js
+document.querySelector('mux-player').getAttribute('playback-id')
+```
+
+Com ele:
+
+```bash
+# vídeo — -c copy não recodifica, então não há perda
+ffmpeg -i "https://stream.mux.com/{playback-id}.m3u8" -c copy saida.mp4
+
+# frame como imagem (o time= vem do atributo thumbnail-time do player)
+curl -L "https://image.mux.com/{playback-id}/thumbnail.png?width=1280&time=3" -o poster.png
+```
+
+**Os originais vêm sem otimização** — 1920×1080, 80 MB para 2 minutos.
+Recomprima para entrega:
+
+```bash
+ffmpeg -i entrada.mp4 -vf "scale=1280:-2" -c:v libx264 -crf 26 -preset slow \
+  -pix_fmt yuv420p -movflags +faststart -an saida.mp4
+```
+
+O `-an` remove o áudio quando o vídeo toca mudo — corta tamanho de graça.
+
+**Frame vazio:** se um thumbnail voltar muito menor que os vizinhos (8 KB
+contra 400 KB), é quadro em branco. Sonde vários `time=` e compare o tamanho
+do arquivo antes de abrir.
+
+## Assets que não aparecem varrendo tags
+
+Uma varredura por `<img>`, `<video>`, `<mux-player>` **não encontra**:
+
+- `background-image` em `<div>` — busque por `getComputedStyle(e).backgroundImage !== 'none'`
+- camadas `position: fixed` — a coordenada não tem relação com o fluxo, então
+  filtros por proximidade as perdem
+- `scrollLeft` dirigido por JS — não existe em `getComputedStyle`
+
+Ao inventariar uma página, varra por **propriedade**, não por tag.

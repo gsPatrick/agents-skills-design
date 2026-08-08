@@ -1,0 +1,102 @@
+/* Vive dentro do Hero, sobreposta ao dashboard — sem fundo próprio. */
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-28);
+  width: 100%;
+  padding-block: var(--spacing-32);
+}
+
+.label {
+  font-size: var(--text-caption);
+  color: var(--color-slate-gray);
+  text-align: center;
+}
+
+.slider {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Véus sólidos nas pontas — no original são gradientes para
+   --color-primary-background, não máscara. Precisam ser sólidos porque a
+   faixa passa por cima do dashboard. */
+.slider::before,
+.slider::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 20%;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.slider::before {
+  left: 0;
+  background: linear-gradient(
+    to right,
+    var(--color-paper-white),
+    transparent
+  );
+}
+
+.slider::after {
+  right: 0;
+  background: linear-gradient(to left, var(--color-paper-white), transparent);
+}
+
+.track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  /* linear sempre — qualquer easing denuncia o loop. */
+  animation: marquee 55s linear infinite;
+}
+
+.item {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  padding-right: var(--spacing-32);
+}
+
+.brand {
+  height: 100%;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+/* Duas cópias + -50% = a costura é invisível porque o pixel final é
+   idêntico ao inicial. Ver recipes/marquee-seamless. */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (min-width: 768px) {
+  .section {
+    gap: var(--spacing-32);
+  }
+
+  .item {
+    height: 44px;
+    padding-right: var(--spacing-64);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    animation: none;
+  }
+}

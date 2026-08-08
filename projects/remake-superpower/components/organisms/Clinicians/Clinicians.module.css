@@ -1,0 +1,205 @@
+.section {
+  position: relative;
+  background-color: #fff;
+  overflow: clip;
+}
+
+.pagePadding {
+  padding-inline: 2.5rem;
+  padding-block: 7rem;
+}
+
+.container {
+  width: 100%;
+  max-width: 80rem;
+  margin-inline: auto;
+}
+
+.component {
+  display: flex;
+  flex-flow: column;
+}
+
+.titleRow {
+  display: flex;
+  flex-flow: column;
+  align-items: flex-start;
+  gap: 1rem;
+  max-width: 45rem;
+}
+
+.h2 {
+  font-size: 2.5rem;
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -0.0225em;
+}
+
+.logoRow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4rem;
+  margin-top: 3rem;
+}
+
+.logo {
+  max-height: 2.1rem;
+  width: auto;
+  opacity: 0.33;
+  filter: grayscale(1);
+}
+
+.logoFull {
+  opacity: 1;
+  filter: none;
+}
+
+/* calc(50vw + 50%) — MAIS LARGO que o container. O trilho sangra para fora
+   da margem direita, então o próximo card fica meio visível na borda. É o
+   único indicador de que há mais: nem seta, nem bolinha, só o corte. */
+.sliderWrapper {
+  width: calc(50vw + 50%);
+  margin-top: 4rem;
+  margin-right: 0;
+  position: relative;
+  cursor: grab;
+  overflow-x: auto;
+  scrollbar-width: none;
+  user-select: none;
+}
+
+.sliderWrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.list {
+  display: flex;
+  gap: 2rem;
+  transition: transform 0.4s;
+}
+
+/* A divisória pertence ao CARD, não ao trilho — assim acompanha o arrasto
+   em vez de ficar fixa na tela. */
+.card {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  border-right: 0.0625rem solid #18181b1a;
+}
+
+.cardImage {
+  position: relative;
+  flex-shrink: 0;
+  width: 13.75rem;
+  height: 16.5625rem;
+  border-radius: 0.75rem;
+  background-color: #fafafa;
+  overflow: hidden;
+  /* 5% de preto num raio de 1.5px: não é para ver, é para o retrato não
+     flutuar sobre o branco. */
+  box-shadow: 0 0.0925rem 0.0925rem #00000005;
+}
+
+.cover {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cardInfo {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  justify-content: space-between;
+  width: 23rem;
+  height: 100%;
+  padding: 0.5rem 2rem;
+}
+
+.cardLogo {
+  width: 7.625rem;
+  height: 1.9375rem;
+}
+
+.cardLogoImg {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  object-position: left center;
+}
+
+.contentWrap {
+  display: flex;
+  flex-flow: column;
+  gap: 1.5rem;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.nome {
+  font-size: 1.125rem;
+  line-height: 1.4;
+}
+
+.cargo,
+.bio {
+  font-size: 0.875rem;
+  line-height: 1.4;
+  color: rgba(24, 24, 27, 0.6);
+}
+
+.content {
+  display: flex;
+  flex-flow: column;
+  gap: 0.5rem;
+}
+
+.bio {
+  color: #18181b;
+}
+
+.link {
+  font-size: 0.875rem;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  transition: opacity 0.2s ease-out;
+}
+
+.link:hover {
+  opacity: 0.6;
+}
+
+@media (max-width: 991px) {
+  .pagePadding {
+    padding-inline: 1.25rem;
+    padding-block: 4rem;
+  }
+
+  .sliderWrapper {
+    width: 100%;
+  }
+
+  .card {
+    flex-flow: column;
+    align-items: flex-start;
+    border-right: none;
+    max-width: 18rem;
+  }
+
+  .cardInfo {
+    width: auto;
+    padding: 1rem 0 0;
+  }
+
+  .logoRow {
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+}

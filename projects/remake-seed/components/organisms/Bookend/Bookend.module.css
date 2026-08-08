@@ -1,0 +1,197 @@
+.section {
+  padding: 80px 32px;
+  background-color: var(--color-paper);
+}
+
+/* 12 colunas de 84.08px + 11 gaps de 32 = 1361, o container do design
+   system. Sem o max-width a coluna vira 85.33 e cada cartão fica 7px
+   maior. */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--grid-gap);
+  /* SEM margin auto: o grid ancora no padding esquerdo (x=32). Centralizado
+     ele caía em 40 numa viewport de 1440 — o mesmo erro do card da ViaCap. */
+  max-width: var(--container);
+}
+
+/* 665×665: QUADRADO exato, não 16/9 nem 4/3. */
+.frame {
+  position: relative;
+  grid-column: span 6;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  border-radius: 16px;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  color: var(--color-paper);
+  text-align: center;
+}
+
+/* rotate(90°) medido como matrix(0, 1, -1, 0, 0, 0). Corre na vertical pela
+   lateral esquerda — crédito de locação como marca d'água editorial. */
+/* 46,299 medido. A rotação é em torno do canto superior esquerdo, e o
+   texto desce a partir dali — por isso `top` fica no início do bloco, não
+   no meio. */
+/* Coordenadas relativas ao FRAME, não à seção: o frame começa em y=80, então
+   o eyebrow medido em 299 vira 219 aqui. E `left` compensa a rotação — girar
+   90° em torno do canto superior esquerdo joga a caixa 18px para a esquerda,
+   então 46 + 18 = 64. */
+.eyebrow {
+  position: absolute;
+  top: 219px;
+  left: 32px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  letter-spacing: 0.06em;
+  transform: rotate(90deg);
+  transform-origin: left top;
+  font-size: 12px;
+  font-weight: var(--weight-light);
+  line-height: 18px;
+  letter-spacing: normal;
+  white-space: nowrap;
+  text-transform: uppercase;
+  color: var(--color-paper);
+}
+
+.dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: currentColor;
+  flex-shrink: 0;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 40px/350 lh 44 (1.1) ls −0.4px */
+.title {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  font-size: 40px;
+  font-weight: var(--weight-350);
+  line-height: 1.1;
+  letter-spacing: -0.4px;
+}
+
+.titleShop {
+  display: block;
+  margin-top: 24px;
+}
+
+.title sup {
+  font-size: 0.5em;
+  vertical-align: super;
+  line-height: 0;
+}
+
+/* Os colchetes abrem a partir do centro quando o wrapper fica visível.
+   A largura de 0 → auto não anima em CSS, então o efeito vem de escalar
+   os colchetes e revelar a palavra por opacidade + deslocamento. */
+.wordWrap {
+  display: inline-flex;
+  align-items: baseline;
+  overflow: hidden;
+}
+
+.bracket {
+  display: inline-block;
+  font-family: "Hiragino Sans", "Noto Sans CJK JP", system-ui, sans-serif;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.5s var(--ease-out);
+}
+
+.word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.45s var(--ease-out) 0.15s,
+    transform 0.45s var(--ease-out) 0.15s;
+}
+
+.isVisible .bracket {
+  transform: scaleX(1);
+}
+
+.isVisible .word {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.body {
+  margin-top: 20px;
+  font-size: 16px;
+  font-weight: var(--weight-350);
+  line-height: 1.3;
+  letter-spacing: -0.16px;
+}
+
+/* 128×52, radius 1000px, fundo branco com texto ink — inverte o botão
+   principal da página, que é ink sobre claro. */
+.cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 52px;
+  /* 128px medidos; o subset renderiza 136. */
+  min-width: 128px;
+  margin-top: 28px;
+  padding: 0 24px;
+  border-radius: var(--radius-pill);
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-size: 16px;
+  font-weight: var(--weight-350);
+  letter-spacing: -0.04px;
+  transition: opacity 0.2s var(--ease-out);
+}
+
+.cta:hover {
+  opacity: 0.88;
+}
+
+.caps {
+  width: 232px;
+  height: 142px;
+  object-fit: contain;
+}
+
+@media (max-width: 1023px) {
+  .section {
+    padding: 40px 16px;
+  }
+
+  .grid {
+    gap: 16px;
+  }
+
+  .frame {
+    grid-column: span 12;
+    padding: 24px;
+  }
+
+  .title {
+    font-size: clamp(1.75rem, 1.4rem + 1.6vw, 2.5rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bracket,
+  .word {
+    transform: none;
+    opacity: 1;
+    transition: none;
+  }
+}

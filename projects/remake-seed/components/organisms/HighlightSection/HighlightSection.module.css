@@ -1,0 +1,172 @@
+/* Fundo claro com os cantos SUPERIORES arredondados — o espelho do hero,
+   que tem os inferiores. Os dois emolduram a faixa verde entre eles.
+   Medido: bg #FCFCF7, radius 32px 32px 0 0, padding 80px 32px. */
+/* O margin-top negativo é o que TORNA O ARREDONDAMENTO VISÍVEL.
+   Um border-radius só aparece se houver algo atrás para ser revelado; com
+   as duas seções apenas encostadas, os cantos recortavam o branco do body
+   contra um fundo quase branco — invisível.
+   Puxando 32px para cima, a seção monta sobre o verde e os cantos passam a
+   revelá-lo. Mesmo mecanismo do hero, que tem os cantos INFERIORES e sobe
+   por baixo do nav. Os dois juntos emolduram o bloco verde. */
+.section {
+  position: relative;
+  z-index: 1;
+  margin-top: -32px;
+  padding: 80px 32px;
+  background-color: var(--color-paper);
+  border-radius: 32px 32px 0 0;
+  color: var(--color-ink);
+}
+
+.inner {
+  position: relative;
+  display: grid;
+  grid-template-columns: 608px 1fr;
+  gap: 88px;
+  align-items: center;
+}
+
+/* O texto CENTRALIZA verticalmente na coluna em vez de empilhar no topo.
+   Com padding-top fixo sobrava um vazio grande embaixo à esquerda e a
+   seção crescia 82px além do original. */
+.copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+/* 12px/500, fundo lima, mesma pílula das badges dos cards. */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  height: 24px;
+  padding: 6px 8px;
+  border-radius: var(--radius-pill);
+  background-color: var(--color-lime);
+  color: var(--color-ink);
+  font-size: 12px;
+  font-weight: var(--weight-medium);
+  line-height: 12px;
+}
+
+/* 40px/350 lh 44px (1.1) ls −0.4px */
+.title {
+  margin-top: 24px;
+  max-width: 608px;
+  font-size: 40px;
+  font-weight: var(--weight-350);
+  line-height: 1.1;
+  letter-spacing: -0.4px;
+}
+
+/* 16px/350 lh 20.8 (1.3) ls −0.16px */
+.text {
+  margin-top: 24px;
+  max-width: 608px;
+  font-size: 16px;
+  font-weight: var(--weight-350);
+  line-height: 1.3;
+  letter-spacing: -0.16px;
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 24px;
+  padding: 16px 24px;
+  border-radius: var(--radius-pill);
+  background-color: var(--color-ink);
+  color: var(--color-paper);
+  font-size: 16px;
+  font-weight: var(--weight-350);
+  line-height: 20px;
+  letter-spacing: -0.04px;
+  transition: opacity 0.2s var(--ease-out);
+}
+
+.cta:hover {
+  opacity: 0.9;
+}
+
+/* --- Coluna de mídia ----------------------------------------------------- */
+.media {
+  position: relative;
+}
+
+/* A imagem principal transborda 80px para CIMA, invadindo a faixa verde.
+   É por isso que a seção não pode ter overflow hidden. */
+/* A imagem NÃO transborda. Ela começa 80px abaixo do topo da seção
+   (1752 contra 1672), que é exatamente o padding-top — ou seja, ela senta
+   na borda interna do padding, sem margem negativa nenhuma.
+   Eu havia lido o "80" como transbordo e puxado para fora duas vezes. */
+.hero {
+  position: relative;
+  width: 664px;
+  max-width: 100%;
+  height: auto;
+  /* Todas as imagens da seção são arredondadas — eu havia deixado retas. */
+  border-radius: 16px;
+}
+
+/* 3px abaixo da imagem principal: 2128 − (1752 + 373) = 3. Eu havia trocado
+   por 16 achando que era o gap do grid — era 3 mesmo. */
+.thumbs {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-top: 3px;
+}
+
+/* 211×211 nas duas primeiras; a terceira é mais alta (211×281) e sobe. */
+.thumb {
+  width: 211px;
+  height: 211px;
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+/* A terceira é mais alta (281 contra 211) e alinha pelo TOPO com as outras
+   duas, transbordando para baixo — por isso o container usa align-items
+   flex-start, não flex-end. */
+.thumbTall {
+  width: 211px;
+  height: 281px;
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+@media (max-width: 1023px) {
+  .section {
+    padding: 56px 24px;
+  }
+
+  .inner {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .copy {
+    padding-top: 0;
+  }
+
+  .title {
+    font-size: clamp(1.75rem, 1.3rem + 2vw, 2.5rem);
+  }
+
+  .hero {
+    width: 100%;
+    margin-top: -56px;
+  }
+
+  .thumbs {
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .thumb,
+  .thumbTall {
+    width: 30%;
+    height: auto;
+  }
+}

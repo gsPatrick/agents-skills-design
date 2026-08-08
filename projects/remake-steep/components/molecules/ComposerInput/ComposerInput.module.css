@@ -1,0 +1,55 @@
+.composer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-16);
+  width: 100%;
+  padding: var(--spacing-16);
+  background-color: var(--color-paper-white);
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-input);
+  box-shadow: var(--shadow-popover);
+}
+
+.placeholder {
+  font-size: var(--text-ui);
+  color: var(--color-smoke-gray);
+  line-height: 1.3;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-8);
+}
+
+.tools {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+}
+
+/* Botões fantasma: 32px, sem preenchimento — só a marca do glifo. */
+.tool {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-pill);
+  color: var(--color-smoke-gray);
+  font-size: var(--text-ui);
+}
+
+/* O único elemento sólido do compositor — âncora escura no canto. */
+.send {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  border-radius: var(--radius-pill);
+  background-color: var(--color-ink-black);
+  color: var(--color-paper-white);
+}

@@ -1,0 +1,184 @@
+@font-face {
+  font-family: "Founders Grotesk";
+  src: url(/fonts/FoundersGrotesk-Light.woff2) format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Founders Grotesk";
+  src: url(/fonts/FoundersGrotesk-Regular.woff2) format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Founders Grotesk";
+  src: url(/fonts/FoundersGrotesk-Semibold.woff2) format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Editorial New";
+  src: url(/fonts/EditorialNew-Ultralight.woff2) format("woff2");
+  font-weight: 100 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* Colors */
+  --color-cream: #fff8f1;
+  --color-ash: #e2e8f0;
+  --color-ink: #000000;
+  --color-voltage-blue: #006eff;
+
+  /* Typography — Font Families (real brand fonts, self-hosted via @font-face) */
+  --font-editorial-new: "Editorial New", Georgia, serif;
+  --font-founders-grotesk: "Founders Grotesk", ui-sans-serif, system-ui, sans-serif;
+
+  /* Typography — Scale */
+  --text-body-sm: 16px;
+  --leading-body-sm: 1.5;
+  --tracking-body-sm: -0.32px;
+  --text-body: 18px;
+  --leading-body: 1.5;
+  --tracking-body: -0.36px;
+  --text-body-lg: 21px;
+  --leading-body-lg: 1.5;
+  --tracking-body-lg: -0.42px;
+  --text-subheading: 28px;
+  --leading-subheading: 1.2;
+  --tracking-subheading: -0.56px;
+  --text-heading-sm: 38px;
+  --leading-heading-sm: 1.2;
+  --tracking-heading-sm: -0.76px;
+  --text-heading: 62px;
+  --leading-heading: 1;
+  --tracking-heading: -1.24px;
+  --text-heading-lg: 77px;
+  --leading-heading-lg: 0.95;
+  --tracking-heading-lg: -1.54px;
+  --text-display: 120px;
+  --leading-display: 0.95;
+  --tracking-display: -2.4px;
+
+  /* Typography — Weights */
+  --font-weight-thin: 100;
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-display: 800;
+
+  /* Spacing */
+  --spacing-unit: 8px;
+  --spacing-7: 7px;
+  --spacing-11: 11px;
+  --spacing-14: 14px;
+  --spacing-20: 20px;
+  --spacing-29: 29px;
+  --spacing-30: 30px;
+  --spacing-35: 35px;
+  --spacing-43: 43px;
+  --spacing-144: 144px;
+  --spacing-150: 150px;
+
+  /* Layout */
+  --page-max-width: 1200px;
+  --card-padding: 14px;
+
+  /* Border Radius */
+  --radius-full: 60.0048px;
+  --radius-cards: 0px;
+  --radius-pills: 60px;
+  --radius-buttons: 60px;
+
+  /* Surfaces */
+  --surface-page-canvas: #fff8f1;
+  --surface-card-surface: #fff8f1;
+
+  /* ---- Working aliases used across components ---- */
+  --leading-tight: var(--leading-heading-lg);
+  --leading-snug: var(--leading-subheading);
+  --tracking-base: -0.02em;
+
+  --weight-thin: var(--font-weight-thin);
+  --weight-light: var(--font-weight-light);
+  --weight-regular: var(--font-weight-regular);
+  --weight-medium: var(--font-weight-medium);
+  --weight-semibold: var(--font-weight-semibold);
+  --weight-display: var(--font-weight-display);
+
+  --radius-pill: var(--radius-pills);
+
+  --page-padding: 144px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  background-color: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-founders-grotesk);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  letter-spacing: var(--tracking-base);
+  font-feature-settings: "clig", "liga";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+button {
+  font-family: inherit;
+  letter-spacing: var(--tracking-base);
+  cursor: pointer;
+}
+
+input,
+textarea,
+select {
+  font-family: inherit;
+  letter-spacing: var(--tracking-base);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+@media (max-width: 900px) {
+  :root {
+    --page-padding: 32px;
+    --spacing-150: 88px;
+    --spacing-144: 40px;
+  }
+}
+
+@media (max-width: 560px) {
+  :root {
+    --page-padding: 22px;
+    --spacing-150: 64px;
+  }
+}
+
+/* Custom cursor: hide the native pointer while the wheel cursor is active
+   (added by the Cursor component only on precise-pointer devices). */
+@media (pointer: fine) {
+  html.cursorHidden,
+  html.cursorHidden * {
+    cursor: none !important;
+  }
+}

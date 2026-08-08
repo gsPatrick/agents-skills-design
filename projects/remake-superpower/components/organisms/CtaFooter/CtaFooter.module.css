@@ -1,0 +1,402 @@
+/* .section_sp2-cta — min-height 50rem e justify-content:center.
+   O bloco de conteúdo não chega perto de 50rem (dá ~19rem + 14rem de padding),
+   então quem manda na altura é o min-height e o conteúdo fica VERTICALMENTE
+   CENTRADO num vão escuro. É o respiro que faz a seção fechar a página. */
+.section {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 50rem;
+  color: #ffffff;
+  /* O fundo migrou para `.footer-cta-wrap`, que envolve CTA + rodapé. */
+  background-color: transparent;
+  overflow: hidden;
+}
+
+/* A cena WebGL original tem uma camada `gradient` que é preto puro e, por
+   cima, a foto com width=100% do artboard / top=0 / altura pelo aspect
+   (1701÷1818 = .9356). Traduzido: 100% auto ancorado no topo.
+   Como a imagem é mais alta que a seção (100% de largura → 106.9% de altura
+   a 1440px), só a metade de cima aparece — que é exatamente o enquadramento
+   do original, onde o canvas cobria CTA + rodapé. */
+.fundo {
+  position: absolute;
+  inset: 0;
+  /* a imagem agora vive no wrapper compartilhado */
+  background-image: none;
+  background-size: 100% auto;
+  background-position: top center;
+  background-repeat: no-repeat;
+  pointer-events: none;
+}
+
+/* .sp2-cta_inner — align-self:stretch. Sem isso o inner encolheria para o
+   conteúdo por causa do align-items:flex-start do pai. */
+.inner {
+  align-self: stretch;
+}
+
+.pagePadding {
+  display: block;
+  padding-left: 2.5rem;
+  padding-right: 2.5rem;
+  padding-top: 7rem;
+  padding-bottom: 7rem;
+}
+
+.container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 80rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* max-width 50% — o texto ocupa metade do container e a outra metade fica
+   para a foto do fundo respirar. Não é grid: é só um teto de largura. */
+.component {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 50%;
+  color: #ffffff;
+}
+
+/* .pre-heading_trustpilot na variante "with-reviews": some o pill (bg
+   transparente, sem borda, padding 0) e o gap cai de .5rem para .25rem.
+   O `overflow:hidden` e o `border-radius:999px` vêm da regra base e ficam —
+   inofensivos aqui, mas mantidos porque é o que compõe no original.
+   A cor branca e o justify-content:flex-start vêm do <style> inline do
+   .footer-cta_wrap, não do CSS compilado. */
+.trustpilot {
+  position: relative;
+  display: inline-flex;
+  flex-flow: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.25rem;
+  width: 100%;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  overflow: hidden;
+  background-color: transparent;
+  color: #ffffff;
+  font-size: 0.875rem;
+}
+
+/* .pre-heading_trustpilor-star — 1.3rem, e o SVG é width/height 100%. */
+.estrela {
+  width: 1.3rem;
+  height: 1.3rem;
+}
+
+/* .heading-style-h1 — 3.75rem com line-height 1 exato. O peso é o regular
+   da Nb International Pro; o original não sobe para bold em lugar nenhum. */
+.heading {
+  font-size: 3.75rem;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  font-weight: 400;
+}
+
+/* .span-break — "superpower" cai para a segunda linha por display:block,
+   não por <br>. Assim o texto continua sendo uma frase só para leitores
+   de tela e a quebra é responsabilidade do CSS. */
+.quebra {
+  display: block;
+}
+
+/* .membership_info + variante align-left → justify-content:flex-start. */
+.info {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.infoItem {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* .icon-embed-small — caixa de 1.25rem, mas o SVG vem com width/height 17
+   fixos no markup. Fica 17px dentro de 18.7px: é assim no original. */
+.icone {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  color: #ffffff; /* stroke=currentColor — o override do footer-cta_wrap */
+}
+
+/* .text-size-small.text-color-secondary — o −.1px de letter-spacing é fixo
+   em px no original (não escala com a raiz fluida), mantido literal. */
+.infoLabel {
+  display: block;
+  font-size: 0.875rem;
+  letter-spacing: -0.1px;
+  color: #ffffff;
+}
+
+.botoes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* .sp2_btn base. O radius 5rem da base é substituído por 999px nas duas
+   variantes, e a transição é só background-color. */
+.btn {
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.25rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  overflow: hidden;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color 0.25s var(--ease-btn);
+}
+
+/* variante primary-rounded-alternate — invertida em relação ao botão
+   padrão da página (que é preto): aqui o fundo é branco porque a seção
+   inteira é escura. */
+.btnPrimario {
+  background-color: #ffffff;
+  color: var(--text-primary);
+  border-style: none;
+}
+
+.btnPrimario:hover {
+  background-color: #e4e4e7; /* zinc-200 */
+}
+
+/* variante secondary-rounded-alternate — vidro sobre a foto:
+   #ffffff1a + backdrop blur(32px). O blur é grande de propósito, a foto
+   atrás tem detalhe demais para um blur curto. */
+.btnSecundario {
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
+  color: #ffffff;
+  border-style: none;
+}
+
+.btnSecundario:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.btn:focus-visible {
+  outline: 3px solid #4a9eff;
+  outline-offset: 4px;
+}
+
+.btnConteudo {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+/* .footer2_video-wrap — coluna, gap 1rem, e o card com align-self:flex-start
+   para não esticar na largura da coluna. */
+.videoWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* .footer2_ceo-video-card — 8.67rem × 5.375rem. Não é 16:9 (daria 4.876rem):
+   o card é levemente mais alto que o vídeo, e o object-fit:cover corta as
+   laterais. Só acima de 1920px o original troca para aspect-ratio 16/9. */
+.videoCard {
+  position: relative;
+  align-self: flex-start;
+  width: 8.67rem;
+  height: 5.375rem;
+  border-radius: 0.45rem;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+/* .video-card.is-bg video.vc-video — opacity 1 desde o começo, sem poster
+   e sem fade: em modo background o vídeo É o card. */
+.videoBg {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 1;
+}
+
+/* .play-button.is-small — 1.5rem, centrado, #ffffff40. */
+.playButton {
+  position: absolute;
+  z-index: 10;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 999px;
+  background-color: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+  pointer-events: none;
+}
+
+.playIconWrap {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+/* .play-icon é 3rem no original, DENTRO de um botão de 1.5rem — a largura
+   encolhe por flex-shrink e a altura estoura. O preserveAspectRatio do SVG
+   reancora o glifo no centro, então o resultado visível é um triângulo de
+   ~1.5rem. Copiado literal em vez de "corrigido" para 1.5rem: mudar isso
+   deslocaria o glifo alguns décimos. */
+.playIcon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 3rem;
+  height: 3rem;
+}
+
+/* .footer2_video-content — .875rem. "Play video" usa a cor terciária
+   (zinc-400) do original; sobre preto ela lê como um link discreto. */
+.videoContent {
+  font-size: 0.875rem;
+}
+
+.videoLink {
+  color: #a1a1aa; /* zinc-400 = --text-color--text-tertiary */
+  cursor: pointer;
+  transition: color 0.25s var(--ease-btn);
+}
+
+.videoLink:hover {
+  color: #ffffff;
+}
+
+/* data-vc-lightbox — não existe CSS para ele no arquivo salvo (é injetado
+   pelo plyr em runtime). Overlay mínimo: escurece tudo e centra o vídeo. */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2.5rem;
+  background-color: rgba(0, 0, 0, 0.9);
+  animation: ctaFade 0.25s var(--ease-btn);
+}
+
+.lightboxVideo {
+  width: 100%;
+  max-width: 60rem;
+  max-height: 100%;
+  border-radius: 0.75rem;
+}
+
+/* @keyframes precisa morar no próprio módulo — o CSS Modules hasheia o nome
+   e a referência junto; declarado no globals ele não casaria aqui. */
+@keyframes ctaFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ≤991px — o componente perde o teto de 50% e ocupa a linha inteira; a
+   seção encolhe de 50rem para 35rem porque não há mais metade vazia. */
+@media screen and (max-width: 991px) {
+  .section {
+    min-height: 35rem;
+  }
+
+  .pagePadding {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+  }
+
+  .component {
+    width: 100%;
+    max-width: none;
+  }
+
+  .heading {
+    font-size: 3rem;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .pagePadding {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+
+  .heading {
+    font-size: 2rem;
+  }
+
+  .botoes {
+    gap: 0.5rem;
+  }
+}
+
+/* ≤479px é onde a linha de garantias finalmente QUEBRA: flex-flow wrap e o
+   gap cai de 1.5rem para .5rem. Entre 480 e 767 ela transborda mesmo — o
+   original não faz nada a respeito, e reproduzo o comportamento.
+   O pre-heading também encolhe para .75rem aqui. */
+@media screen and (max-width: 479px) {
+  .trustpilot {
+    font-size: 0.75rem;
+    text-align: left;
+  }
+
+  .info {
+    flex-flow: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .infoItem {
+    flex: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lightbox {
+    animation: none;
+  }
+}
